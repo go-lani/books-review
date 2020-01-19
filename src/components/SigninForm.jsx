@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Inputs from "./Input";
+import Buttons from "../components/Button";
 
 const FormBlock = styled.div`
   width: 50%;
@@ -51,6 +52,9 @@ const SigninForm = props => {
             </Inputs>
           </InputBlock>
         </fieldset>
+        <Buttons size="medium" width={200}>
+          Sign In
+        </Buttons>
       </FormArea>
     </FormBlock>
   );
