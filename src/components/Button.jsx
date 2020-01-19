@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { sienna } from "color-name";
+import styled, { css } from "styled-components";
 
 const sizes = {
   small: {
@@ -23,21 +22,31 @@ const sizes = {
   }
 };
 
+const sizeStyles = css`
+  ${({ size, width }) => css`
+    width: ${width}px;
+    height: ${sizes[size].height};
+    border-radius: ${sizes[size].borderRadius};
+    font-size: ${sizes[size].fontSize};
+    line-height: ${sizes[size].lineHeight};
+  `}
+`;
+
 const Button = styled.button`
   display: inline-block;
-  width: ${({ width }) => width}px;
-  height: ${({ size }) => sizes[size].height};
+  height: 20px;
   border: none;
-  border-radius: ${({ size }) => sizes[size].borderRadius};
   font-weight: 400;
-  font-size: ${({ size }) => sizes[size].fontSize};
-  line-height: ${({ size }) => sizes[size].lineHeight};
+  font-size: 1.2rem;
+  line-height: 18px;
   color: #000;
   padding: 0 10px;
 
   & + & {
     margin: 0 0 0 20px;
   }
+
+  ${sizeStyles}
 `;
 
 const Buttons = ({ size, width, color, children, ...rest }) => {
