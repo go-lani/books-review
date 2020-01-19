@@ -6,9 +6,6 @@ const Home = () => {
     <>
       <ul>
         <li>
-          <Link to="/">HELLO</Link>
-        </li>
-        <li>
           <Link to="/signin">로그인</Link>
         </li>
       </ul>

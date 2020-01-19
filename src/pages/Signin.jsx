@@ -3,6 +3,7 @@ import styled from "styled-components";
 import media from "../libs/MediaQuery";
 import SigninIntro from "../components/SigninIntro";
 import SigninForm from "../components/SigninForm";
+import A11yTitle from "../components/A11yTitle";
 
 const SignInWrapper = styled.section`
   display: flex;
@@ -15,7 +16,7 @@ const SignInWrapper = styled.section`
 
 const SignInInner = styled.div`
   overflow: hidden;
-  width: 80%;
+  width: 85%;
   border-radius: 10px;
 
   ${media.tablet`
@@ -23,7 +24,7 @@ const SignInInner = styled.div`
   `}
 
   ${media.desktop`
-    width: 60%;
+    width: 55%;
   `}
 `;
 
@@ -40,7 +41,7 @@ const SigninArea = styled.div`
 const Signin = () => {
   return (
     <SignInWrapper>
-      <h1 className="hide">로그인 영역</h1>
+      <A11yTitle>로그인 영역</A11yTitle>
       <SignInInner>
         <SigninArea>
           <SigninIntro />

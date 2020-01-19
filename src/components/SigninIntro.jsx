@@ -3,20 +3,21 @@ import styled from "styled-components";
 import media from "../libs/MediaQuery";
 
 const IntroArea = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 50%;
+  padding: 40px;
   background: #1f6cc7;
 
-  ${media.tablet`
-    width: 50%;
-  `}
-
-  ${media.desktop`
-    width: 50%;
+  ${media.mobile`
+    width: 100%;
   `}
 `;
 
 const ImageBlock = styled.div`
   text-align: center;
+
   ${media.mobile`
     height: 150px;
   `}
@@ -24,21 +25,15 @@ const ImageBlock = styled.div`
 
 const Image = styled.img`
   max-width: 100%;
-  width: auto;
+  width: 100%;
   height: 100%;
 
-  ${media.tablet`
-    width: 100%;
-  `}
-
-  ${media.desktop`
-    width: 100%;
+  ${media.mobile`
+    width: auto;
   `}
 `;
 
-const TextBlock = styled.div`
-  padding: 20px;
-`;
+const TextBlock = styled.div``;
 
 const Title = styled.p`
   font-weight: 600;
@@ -80,24 +75,20 @@ const Description = styled(Title)`
   `}
 `;
 
-const SigninIntro = props => {
+const SigninIntro = () => {
   return (
     <IntroArea>
-      <TextBlock>
-        <Title>
-          Publee's <br className="br" />
-          Review Service <br className="br" />
-          For Books
-        </Title>
-      </TextBlock>
+      <Title>
+        Publee's <br className="br" />
+        Review Service <br className="br" />
+        For Books
+      </Title>
       <ImageBlock>
-        <Image src="/books_bg.gif" alt="sign in image" />
+        <Image src="/books_bg.gif" alt="signIn intro image" />
       </ImageBlock>
-      <TextBlock>
-        <Description>
-          Please share your opinion on Web Development Books.
-        </Description>
-      </TextBlock>
+      <Description>
+        Please share your opinion on Web Development Books.
+      </Description>
     </IntroArea>
   );
 };

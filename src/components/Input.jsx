@@ -19,11 +19,11 @@ const Input = styled.input`
   padding: 12px 5px;
   border: none;
   border-bottom: ${({ active }) =>
-    active ? "1px solid #04adbf" : "1px solid #fff"};
+    active ? "1px solid #04d9b2" : "1px solid #fff"};
   background: none;
   font-size: 1.4rem;
   line-height: 1.5;
-  color: #04adbf;
+  color: #04d9b2;
   transition: all 0.3s;
 
   ::placeholder {
@@ -31,7 +31,7 @@ const Input = styled.input`
   }
 
   &:focus {
-    border-bottom: 1px solid #04adbf;
+    border-bottom: 1px solid #04d9b2;
   }
 `;
 
