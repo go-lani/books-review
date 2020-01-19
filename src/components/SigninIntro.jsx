@@ -65,7 +65,6 @@ const Title = styled.p`
 
 const Description = styled(Title)`
   font-weight: 400;
-  line-height: 1.2;
   text-align: center;
 
   ${media.mobile`
