@@ -1,41 +1,52 @@
 import React from "react";
 import styled from "styled-components";
 import media from "../libs/MediaQuery";
+import SigninIntro from "../components/SigninIntro";
+import SigninForm from "../components/SigninForm";
 
-const SignInWrapper = styled.div`
+const SignInWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #ccc;
+  min-height: 100vh;
+  background: #28343d;
   font-size: 20px;
+`;
 
-  ${media.mobile`
-    background: red;
-  `}
+const SignInInner = styled.div`
+  overflow: hidden;
+  width: 80%;
+  border-radius: 10px;
 
   ${media.tablet`
-    background: green;
+    width: 80%;
   `}
 
   ${media.desktop`
-    background: yellow;
-    color: ${props => props.color};
+    width: 60%;
   `}
 `;
 
-const SignInBox = styled.div`
-  width: 45%;
-  /* min-width: 300px; */
-  height: 400px;
-  background: #fff;
+const SigninArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  ${media.mobile`
+    flex-direction: column;
+  `}
 `;
 
 const Signin = () => {
   return (
-    <SignInWrapper color="purple">
-      heqdwqdwq
-      <SignInBox>dwq</SignInBox>
+    <SignInWrapper>
+      <h1 className="hide">로그인 영역</h1>
+      <SignInInner>
+        <SigninArea>
+          <SigninIntro />
+          <SigninForm />
+        </SigninArea>
+      </SignInInner>
     </SignInWrapper>
   );
 };
