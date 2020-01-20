@@ -33,8 +33,6 @@ const Image = styled.img`
   `}
 `;
 
-const TextBlock = styled.div``;
-
 const Title = styled.p`
   font-weight: 600;
   font-size: 1.8rem;
