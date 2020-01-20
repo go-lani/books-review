@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Label = styled.label`
@@ -35,32 +35,33 @@ const Input = styled.input`
   }
 `;
 
-const Inputs = ({ type, id, essential, children, placeHolder }) => {
-  const inputs = useRef();
-  const [active, setActive] = useState(false);
+const Inputs = React.forwardRef(
+  ({ type, id, essential, children, placeHolder }, ref) => {
+    const [active, setActive] = useState(false);
 
-  const valueCheck = () => {
-    if (inputs.current.value !== "") setActive(true);
-    else setActive(false);
-  };
+    const valueCheck = () => {
+      if (ref.current.value !== "") setActive(true);
+      else setActive(false);
+    };
 
-  return (
-    <>
-      <Label htmlFor={id}>
-        {children}
-        {essential && <span className="ess">*</span>}
-      </Label>
-      <Input
-        ref={inputs}
-        type={type}
-        id={id}
-        placeholder={placeHolder}
-        onBlur={valueCheck}
-        onFocus={() => setActive(true)}
-        active={active}
-      />
-    </>
-  );
-};
+    return (
+      <>
+        <Label htmlFor={id}>
+          {children}
+          {essential && <span className="ess">*</span>}
+        </Label>
+        <Input
+          ref={ref}
+          type={type}
+          id={id}
+          placeholder={placeHolder}
+          onBlur={valueCheck}
+          onFocus={() => setActive(true)}
+          active={active}
+        />
+      </>
+    );
+  }
+);
 
 export default Inputs;
