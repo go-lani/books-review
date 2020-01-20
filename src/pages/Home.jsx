@@ -1,7 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const Home = () => {
+  const token = localStorage.getItem("token");
+
+  if (token === null) return <Redirect to="/signin" />;
+
   return (
     <>
       <ul>

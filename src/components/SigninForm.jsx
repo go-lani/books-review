@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
+import { useHistory } from "react-router-dom";
 import Inputs from "./Input";
 import Buttons from "../components/Button";
 import A11yTitle from "../components/A11yTitle";
@@ -84,9 +84,11 @@ const SigninForm = () => {
   const passwordRef = React.createRef();
   const [feed, setFeed] = useState(false);
   const [feedComment, setFeedComment] = useState("");
+  const history = useHistory();
 
   const click = async e => {
     e.preventDefault();
+
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
@@ -95,6 +97,10 @@ const SigninForm = () => {
         email,
         password
       });
+      const { token } = response.data;
+
+      localStorage.setItem("token", token);
+      history.push("/");
     } catch (error) {
       if (error.response.data.error === "USER_NOT_EXIST") {
         setFeedComment("해당하는 유저가 없습니다.");
