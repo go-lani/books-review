@@ -77,6 +77,16 @@ const Question = styled.p`
 `;
 
 const SigninForm = () => {
+  const emailRef = React.createRef();
+  const passwordRef = React.createRef();
+
+  const click = () => {
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    console.log(password);
+    console.log(email);
+  };
+
   return (
     <FormArea>
       <Greeting>SignIn</Greeting>
@@ -85,6 +95,7 @@ const SigninForm = () => {
           <A11yTitle as="legend">로그인 정보 입력영역</A11yTitle>
           <InputBox>
             <Inputs
+              ref={emailRef}
               type="email"
               id="email"
               placeHolder="Enter Your E-mail"
@@ -95,6 +106,7 @@ const SigninForm = () => {
           </InputBox>
           <InputBox>
             <Inputs
+              ref={passwordRef}
               type="password"
               id="password"
               placeHolder="Enter Your Password"
@@ -105,7 +117,13 @@ const SigninForm = () => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} color="green">
+          <Buttons
+            size="medium"
+            width={150}
+            loading={false}
+            onClick={click}
+            color="green"
+          >
             Sign In
           </Buttons>
         </ButtonBox>
