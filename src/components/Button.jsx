@@ -83,13 +83,15 @@ const Button = styled.button`
   ${colorStyles}
 `;
 
-const Buttons = ({ size, width, color, children, ...rest }) => {
-  return (
-    <Button size={size} width={width} color={color} {...rest}>
-      {children}
-    </Button>
-  );
-};
+const Buttons = React.forwardRef(
+  ({ size, width, color, children, ...rest }) => {
+    return (
+      <Button size={size} width={width} color={color} {...rest}>
+        {children}
+      </Button>
+    );
+  }
+);
 
 Buttons.defaultProps = {
   color: "black",
