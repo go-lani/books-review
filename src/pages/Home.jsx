@@ -7,7 +7,9 @@ const Home = ({ token }) => {
     <>
       <ul>
         <li>
-          <Link to="/signin">로그인</Link>
+          <Link to={`${token ? "/signout" : "/signin"}`}>
+            {token ? "로그아웃" : "로그인"}
+          </Link>
         </li>
       </ul>
       <div>홈</div>

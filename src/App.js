@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
+import Signout from "./pages/Signout";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from "react-error-boundary";
 
@@ -11,6 +12,7 @@ const App = () => (
   <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
     <BrowserRouter>
       <Switch>
+        <Route exact path="/signout" component={Signout} />
         <Route exact path="/signin" component={Signin} />
         <Route exact path="/" component={Home} />
         <Route component={NotFound} />
