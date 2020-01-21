@@ -1,11 +1,8 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import withAuth from "../hocs/withAuth";
 
-const Home = () => {
-  const token = localStorage.getItem("token");
-
-  if (token === null) return <Redirect to="/signin" />;
-
+const Home = ({ token }) => {
   return (
     <>
       <ul>
@@ -18,4 +15,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withAuth(Home);
