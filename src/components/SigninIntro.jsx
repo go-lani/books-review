@@ -5,37 +5,34 @@ import media from "../libs/MediaQuery";
 const IntroArea = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  position: relative;
   width: 50%;
   padding: 40px;
-  background: #1f6cc7;
+  background: url("/books_bg.gif") no-repeat center center / cover;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+  }
 
   ${media.mobile`
     width: 100%;
-  `}
-`;
-
-const ImageBlock = styled.div`
-  text-align: center;
-
-  ${media.mobile`
-    height: 150px;
-  `}
-`;
-
-const Image = styled.img`
-  max-width: 100%;
-  width: 100%;
-  height: 100%;
-
-  ${media.mobile`
-    width: auto;
-  `}
+    min-height: 220px;
+  justify-content: space-evenly;
+  `};
 `;
 
 const Title = styled.p`
+  position: relative;
+  z-index: 1;
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   line-height: 1.5;
   color: #fff;
   text-align: left;
@@ -61,15 +58,16 @@ const Description = styled(Title)`
   text-align: center;
 
   ${media.mobile`
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    text-align: left;
   `}
 
   ${media.tablet`
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   `}
 
   ${media.desktop`
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   `}
 `;
 
@@ -81,9 +79,6 @@ const SigninIntro = () => {
         Review Service <br className="br" />
         For Books
       </Title>
-      <ImageBlock>
-        <Image src="/books_bg.gif" alt="signIn intro image" />
-      </ImageBlock>
       <Description>
         Please share your opinion on Web Development Books.
       </Description>
