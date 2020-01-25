@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import media from "../libs/MediaQuery";
+import media from "../../libs/MediaQuery";
 
 const IntroArea = styled.div`
   display: flex;
