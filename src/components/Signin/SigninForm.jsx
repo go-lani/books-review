@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import Inputs from "./Input";
-import Buttons from "../components/Button";
-import A11yTitle from "../components/A11yTitle";
-import Feedback from "../components/Feedback";
-import media from "../libs/MediaQuery";
+import Inputs from "../Input";
+import Buttons from "../Button";
+import A11yTitle from "../A11yTitle";
+import Feedback from "../Feedback";
+import media from "../../libs/MediaQuery";
 
 const FormArea = styled.div`
   width: 100%;
