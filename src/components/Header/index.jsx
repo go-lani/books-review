@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const HeaderLayout = styled.header`
+const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background: #000;
+  background: #28343d;
   color: #fff;
 `;
 
 const Header = props => {
-  return <HeaderLayout>{props.children}</HeaderLayout>;
+  return <StyledHeader>{props.children}</StyledHeader>;
 };
 
 export default Header;
