@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Inputs from "../Input";
 import Buttons from "../Button";
 import Popup from "../Popup";
+import axios from "axios";
 
 const InputBox = styled.div`
   & + & {
@@ -27,6 +28,36 @@ const AddBook = props => {
   const messageRef = React.createRef();
   const authorRef = React.createRef();
   const urlRef = React.createRef();
+
+  const onAddBook = async e => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    const title = titleRef.current.value;
+    const message = messageRef.current.value;
+    const author = authorRef.current.value;
+    const url = urlRef.current.value;
+
+    try {
+      const response = await axios.post(
+        "https://api.marktube.tv/v1/book",
+        {
+          title,
+          message,
+          author,
+          url
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Popup {...props}>
@@ -77,7 +108,7 @@ const AddBook = props => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} color="blue">
+          <Buttons size="medium" width={150} color="blue" onClick={onAddBook}>
             ADD
           </Buttons>
         </ButtonBox>

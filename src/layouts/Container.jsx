@@ -3,7 +3,7 @@ import styled from "styled-components";
 import A11yTitle from "../components/A11yTitle";
 
 const StyledContainer = styled.section`
-  padding: 60px 0 0;
+  padding: 60px 30px 30px;
 `;
 
 const Container = props => {
