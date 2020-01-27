@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "../components/Header";
 import Navigation from "../components/Navigation";
 import UtilMenu from "../components/UtilMenu";
@@ -13,7 +13,7 @@ const Home = ({ token }) => {
   const [books, setBooks] = useState();
   const [addBookVisible, setAddBookVisible] = useState(false);
 
-  const getBooks = async () => {
+  const getBooks = useCallback(async () => {
     try {
       const { data } = await axios.get("https://api.marktube.tv/v1/book", {
         headers: {
@@ -25,26 +25,26 @@ const Home = ({ token }) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     getBooks();
   }, [getBooks]);
 
-  const handledAddBook = () => {
+  const handledAddBook = useCallback(() => {
     setAddBookVisible(!addBookVisible);
-  };
+  }, [addBookVisible]);
 
   return (
     <>
       <Header>
         <Navigation />
-        <UtilMenu onVisible={handledAddBook} />
+        <UtilMenu onAddVisible={handledAddBook} />
       </Header>
       <Container area="책 리스트">
         {books && books.length ? <Books books={books} /> : <NoneItem />}
       </Container>
-      {addBookVisible ? <AddBook onVisible={handledAddBook} /> : null}
+      <AddBook visible={addBookVisible} onVisible={handledAddBook} />
     </>
   );
 };
