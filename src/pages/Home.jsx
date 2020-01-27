@@ -10,6 +10,7 @@ import withAuth from "../hocs/withAuth";
 import axios from "axios";
 
 const Home = ({ token }) => {
+  const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState();
   const [addBookVisible, setAddBookVisible] = useState(false);
 
@@ -22,6 +23,7 @@ const Home = ({ token }) => {
       });
 
       setBooks(data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +44,15 @@ const Home = ({ token }) => {
         <UtilMenu onAddVisible={handledAddBook} />
       </Header>
       <Container area="책 리스트">
-        {books && books.length ? <Books books={books} /> : <NoneItem />}
+        {!loading ? (
+          books && books.length ? (
+            <Books books={books} />
+          ) : (
+            <NoneItem />
+          )
+        ) : (
+          "loading..."
+        )}
       </Container>
       <AddBook visible={addBookVisible} onVisible={handledAddBook} />
     </>
