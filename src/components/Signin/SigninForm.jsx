@@ -86,7 +86,7 @@ const SigninForm = () => {
   const [feedComment, setFeedComment] = useState("");
   const history = useHistory();
 
-  const click = async e => {
+  const passLogin = async e => {
     e.preventDefault();
 
     const email = emailRef.current.value;
@@ -147,7 +147,7 @@ const SigninForm = () => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} onClick={click} color="green">
+          <Buttons size="medium" width={150} onClick={passLogin} color="green">
             Sign In
           </Buttons>
         </ButtonBox>
