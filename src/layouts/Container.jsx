@@ -9,7 +9,7 @@ const StyledContainer = styled.section`
 const Container = props => {
   return (
     <StyledContainer>
-      <A11yTitle>{props.area}</A11yTitle>
+      <A11yTitle>{props.sectionName}</A11yTitle>
       {props.children}
     </StyledContainer>
   );
