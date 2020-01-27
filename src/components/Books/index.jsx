@@ -19,11 +19,11 @@ const Ul = styled.ul`
   `}
 `;
 
-const Books = ({ books }) => {
+const Books = ({ books, onRemoveBook }) => {
   return (
     <Ul>
       {books.map(book => (
-        <BookItem key={book.bookId} book={book} />
+        <BookItem key={book.bookId} book={book} onRemoveBook={onRemoveBook} />
       ))}
     </Ul>
   );

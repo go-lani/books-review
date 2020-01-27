@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Buttons from "../Button";
-import axios from "axios";
 import media from "../../libs/MediaQuery";
 
 const Li = styled.li`
@@ -54,27 +53,7 @@ const Message = styled.p`
   word-break: keep-all;
 `;
 
-const BookItem = ({ book }) => {
-  console.log(book);
-
-  const onRemoveBook = async id => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const { data } = await axios.delete(
-        `https://api.marktube.tv/v1/book/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+const BookItem = ({ book, onRemoveBook }) => {
   return (
     <Li>
       <ImgBox>

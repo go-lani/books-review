@@ -29,13 +29,53 @@ const Home = ({ token }) => {
     }
   }, [token]);
 
-  useEffect(() => {
-    getBooks();
-  }, [getBooks]);
+  const addBook = async (e, title, message, author, url) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.post(
+        "https://api.marktube.tv/v1/book",
+        {
+          title,
+          message,
+          author,
+          url
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      setBooks(books.concat(data));
+      setAddBookVisible(!addBookVisible);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const removeBook = async id => {
+    try {
+      await axios.delete(`https://api.marktube.tv/v1/book/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setBooks(books.filter(book => book.bookId !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handledAddBook = useCallback(() => {
     setAddBookVisible(!addBookVisible);
   }, [addBookVisible]);
+
+  useEffect(() => {
+    getBooks();
+  }, [getBooks]);
 
   return (
     <>
@@ -43,10 +83,10 @@ const Home = ({ token }) => {
         <Navigation />
         <UtilMenu onAddVisible={handledAddBook} />
       </Header>
-      <Container area="책 리스트">
+      <Container sectionName="책 리스트">
         {!loading ? (
           books && books.length ? (
-            <Books books={books} />
+            <Books books={books} onRemoveBook={removeBook} />
           ) : (
             <NoneItem />
           )
@@ -54,7 +94,11 @@ const Home = ({ token }) => {
           "loading..."
         )}
       </Container>
-      <AddBook visible={addBookVisible} onVisible={handledAddBook} />
+      <AddBook
+        visible={addBookVisible}
+        onVisible={handledAddBook}
+        onAddBook={addBook}
+      />
     </>
   );
 };
