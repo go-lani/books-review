@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const withAuth = Component => {
   // 1. WrappedComponent 함수가 통으로 넘어가고
@@ -9,7 +10,8 @@ const withAuth = Component => {
   // 5. 리렌더링?
   function WrappedComponent(props) {
     // props에는 원본 Home컴포넌트에서 받는 prop를 가지고 있다
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
+    const token = useSelector(state => state.token);
     if (token === null) return <Redirect to="/signin" />;
 
     return <Component {...props} token={token} />;

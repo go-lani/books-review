@@ -11,10 +11,7 @@ const Navigation = ({ token }) => {
   return (
     <nav>
       <NavigationBar>
-        <NavItem
-          to={token ? "/signout" : "/signin"}
-          text={token ? "SignOut" : "SignIn"}
-        />
+        <NavItem text={token ? "SignOut" : "SignIn"} />
       </NavigationBar>
     </nav>
   );

@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import Navigation from "../components/Navigation";
 import UtilMenu from "../components/UtilMenu";
 import Books from "../components/Books";
-import NoneItem from "../components/Books/NoneItem";
 import AddBook from "../components/Books/AddBook";
 import Container from "../layouts/Container";
 import withAuth from "../hocs/withAuth";
@@ -11,7 +10,7 @@ import axios from "axios";
 
 const Home = ({ token }) => {
   const [loading, setLoading] = useState(true);
-  const [books, setBooks] = useState();
+  const [books, setBooks] = useState([]);
   const [addBookVisible, setAddBookVisible] = useState(false);
 
   const getBooks = useCallback(async () => {
@@ -85,13 +84,9 @@ const Home = ({ token }) => {
       </Header>
       <Container sectionName="책 리스트">
         {!loading ? (
-          books && books.length ? (
-            <Books books={books} onRemoveBook={removeBook} />
-          ) : (
-            <NoneItem />
-          )
+          <Books books={books} onRemoveBook={removeBook} />
         ) : (
-          "loading..."
+          <div>loading...</div>
         )}
       </Container>
       <AddBook

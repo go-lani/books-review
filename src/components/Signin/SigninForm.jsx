@@ -79,7 +79,7 @@ const Question = styled.p`
   `}
 `;
 
-const SigninForm = () => {
+const SigninForm = ({ setToken }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
   const [feed, setFeed] = useState(false);
@@ -100,6 +100,7 @@ const SigninForm = () => {
       const { token } = response.data;
 
       localStorage.setItem("token", token);
+      setToken(token);
       history.push("/");
     } catch (error) {
       if (error.response.data.error === "USER_NOT_EXIST") {

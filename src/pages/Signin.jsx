@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import media from "../libs/MediaQuery";
 import SigninIntro from "../components/Signin/SigninIntro";
-import SigninForm from "../components/Signin/SigninForm";
+// import SigninForm from '../components/Signin/SigninForm';
 import A11yTitle from "../components/A11yTitle";
+import SigninFormContainer from "../containers/SigninFormContainer";
 
 const SignInWrapper = styled.section`
   display: flex;
@@ -45,7 +46,7 @@ const Signin = () => {
       <SignInInner>
         <SigninArea>
           <SigninIntro />
-          <SigninForm />
+          <SigninFormContainer />
         </SigninArea>
       </SignInInner>
     </SignInWrapper>
