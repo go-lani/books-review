@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Inputs from "./Input";
-import Buttons from "../components/Button";
-import A11yTitle from "../components/A11yTitle";
-import media from "../libs/MediaQuery";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import Inputs from "../Input";
+import Buttons from "../Button";
+import A11yTitle from "../A11yTitle";
+import Feedback from "../Feedback";
+import media from "../../libs/MediaQuery";
 
 const FormArea = styled.div`
   width: 100%;
@@ -76,15 +79,43 @@ const Question = styled.p`
   `}
 `;
 
-const SigninForm = () => {
+const SigninForm = ({ setToken }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
+  const [feed, setFeed] = useState(false);
+  const [feedComment, setFeedComment] = useState("");
+  const history = useHistory();
 
-  const click = () => {
+  const passLogin = async e => {
+    e.preventDefault();
+
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(password);
-    console.log(email);
+
+    try {
+      const response = await axios.post("https://api.marktube.tv/v1/me", {
+        email,
+        password
+      });
+      const { token } = response.data;
+
+      localStorage.setItem("token", token);
+      setToken(token);
+      history.push("/");
+    } catch (error) {
+      if (error.response.data.error === "USER_NOT_EXIST") {
+        setFeedComment("해당하는 유저가 없습니다.");
+      } else if (error.response.data.error === "PASSWORD_NOT_MATCH") {
+        setFeedComment("비밀번호가 틀렸습니다.");
+      } else {
+        setFeedComment("로그인에 문제가 있습니다.");
+      }
+      setFeed(true);
+    }
+  };
+
+  const closeFeed = () => {
+    setFeed(false);
   };
 
   return (
@@ -117,13 +148,7 @@ const SigninForm = () => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons
-            size="medium"
-            width={150}
-            loading={false}
-            onClick={click}
-            color="green"
-          >
+          <Buttons size="medium" width={150} onClick={passLogin} color="green">
             Sign In
           </Buttons>
         </ButtonBox>
@@ -142,6 +167,9 @@ const SigninForm = () => {
           </Buttons>
         </Menu>
       </LoginMenu>
+      <Feedback visible={feed} onCloseFeed={closeFeed}>
+        {feedComment}
+      </Feedback>
     </FormArea>
   );
 };
