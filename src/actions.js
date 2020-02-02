@@ -1,14 +1,9 @@
 // TOKEN
 export const SET_TOKEN = "SET_TOKEN";
-export const REMOVE_TOKEN = "REMOVE_TOKEN";
 
 export const setToken = token => ({
   type: SET_TOKEN,
   token,
-});
-
-export const removeToken = () => ({
-  type: REMOVE_TOKEN,
 });
 
 // 로딩
@@ -39,6 +34,7 @@ export const setFeedVisible = () => ({
 // 책
 export const GET_BOOKS = "GET_BOOKS";
 export const ADD_BOOK = "ADD_BOOK";
+export const REMOVE_BOOK = "REMOVE_BOOK";
 
 export const getBooks = books => ({
   type: GET_BOOKS,
@@ -48,6 +44,11 @@ export const getBooks = books => ({
 export const addBook = book => ({
   type: ADD_BOOK,
   book,
+});
+
+export const removeBook = id => ({
+  type: REMOVE_BOOK,
+  id,
 });
 
 // 팝업

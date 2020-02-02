@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import axios from "axios";
 import Buttons from "../Button";
 import media from "../../libs/MediaQuery";
+import { removeBook } from "../../actions";
 
 const Li = styled.li`
   flex-basis: 20%;
@@ -53,7 +56,7 @@ const Message = styled.p`
   word-break: keep-all;
 `;
 
-const BookItem = ({ book, onRemoveBook }) => {
+const BookItem = ({ token, book, removeBook }) => {
   return (
     <Li>
       <ImgBox>
@@ -65,7 +68,7 @@ const BookItem = ({ book, onRemoveBook }) => {
       <Buttons
         size="small"
         color="pink"
-        onClick={() => onRemoveBook(book.bookId)}
+        onClick={() => removeBook(token, book.bookId)}
       >
         Remove
       </Buttons>
@@ -73,4 +76,21 @@ const BookItem = ({ book, onRemoveBook }) => {
   );
 };
 
-export default BookItem;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    removeBook: async (token, id) => {
+      try {
+        await axios.delete(`https://api.marktube.tv/v1/book/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        dispatch(removeBook(id));
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  }),
+)(BookItem);

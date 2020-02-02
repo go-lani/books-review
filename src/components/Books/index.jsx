@@ -20,21 +20,17 @@ const Ul = styled.ul`
   `}
 `;
 
-const Books = ({ token, books, onRemoveBook, getBooks }) => {
+const Books = ({ token, books, getBooks }) => {
   useEffect(() => {
     getBooks(token);
   }, [getBooks, token]);
 
   return (
     <>
-      {books ? (
+      {books.length ? (
         <Ul>
           {books.map(book => (
-            <BookItem
-              key={book.bookId}
-              book={book}
-              onRemoveBook={onRemoveBook}
-            />
+            <BookItem token={token} key={book.bookId} book={book} />
           ))}
         </Ul>
       ) : (
