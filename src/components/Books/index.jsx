@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BookItem from "./BookItem";
 import styled from "styled-components";
 import media from "../../libs/MediaQuery";
@@ -20,7 +20,11 @@ const Ul = styled.ul`
   `}
 `;
 
-const Books = ({ books, onRemoveBook }) => {
+const Books = ({ token, books, onRemoveBook, getBooks }) => {
+  useEffect(() => {
+    getBooks(token);
+  }, [getBooks, token]);
+
   return (
     <>
       {books ? (

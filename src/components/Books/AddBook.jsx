@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import Inputs from "../Input";
 import Buttons from "../Button";
-import Popup from "../Popup";
+import PopupContainer from "../../containers/PopupContainer";
+import { addBook, hidePopup } from "../../actions";
+import axios from "axios";
 
 const InputBox = styled.div`
   & + & {
@@ -22,14 +25,14 @@ const ButtonBox = styled.div`
   margin: 50px 0 0;
 `;
 
-const AddBook = props => {
+const AddBook = ({ token, addBook, ...rest }) => {
   const titleRef = React.createRef();
   const messageRef = React.createRef();
   const authorRef = React.createRef();
   const urlRef = React.createRef();
 
   return (
-    <Popup {...props}>
+    <PopupContainer {...rest}>
       <form>
         <fieldset>
           <Legend>Add a Book</Legend>
@@ -81,22 +84,50 @@ const AddBook = props => {
             size="medium"
             width={150}
             color="blue"
-            onClick={e =>
-              props.onAddBook(
-                e,
+            onClick={e => {
+              e.preventDefault();
+
+              addBook(
+                token,
                 titleRef.current.value,
                 messageRef.current.value,
                 authorRef.current.value,
-                urlRef.current.value
-              )
-            }
+                urlRef.current.value,
+              );
+            }}
           >
             ADD
           </Buttons>
         </ButtonBox>
       </form>
-    </Popup>
+    </PopupContainer>
   );
 };
 
-export default AddBook;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    addBook: async (token, title, message, author, url) => {
+      try {
+        const { data } = await axios.post(
+          "https://api.marktube.tv/v1/book",
+          {
+            title,
+            message,
+            author,
+            url,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        dispatch(hidePopup());
+        dispatch(addBook(data));
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  }),
+)(AddBook);
