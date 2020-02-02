@@ -1,11 +1,10 @@
 import { connect } from "react-redux";
-import books from "../components/Books/index";
+import books from "../components/Books/";
 import { getBooks } from "../actions";
 import axios from "axios";
 
 export default connect(
   state => ({
-    loading: state.loading,
     books: state.books,
   }),
   dispatch => ({
@@ -16,9 +15,7 @@ export default connect(
             Authorization: `Bearer ${token}`,
           },
         });
-
         dispatch(getBooks(data));
-        // setLoading(false);
       } catch (err) {
         console.log(err);
       }

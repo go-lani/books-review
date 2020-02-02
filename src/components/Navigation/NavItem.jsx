@@ -26,11 +26,10 @@ const NavItem = ({ text }) => {
   const dispatch = useDispatch();
 
   const signOut = () => {
-    console.log(token);
     axios.delete("https://api.marktube.tv/v1/me", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     dispatch(setToken(null));
     localStorage.removeItem("token");
