@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Inputs from "../Input";
 import Buttons from "../Button";
@@ -79,11 +78,9 @@ const Question = styled.p`
   `}
 `;
 
-const SigninForm = ({ setToken }) => {
+const SigninForm = ({ requestSignIn, feedVisible }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
-  const [feed, setFeed] = useState(false);
-  const [feedComment, setFeedComment] = useState("");
   const history = useHistory();
 
   const passLogin = async e => {
@@ -91,31 +88,12 @@ const SigninForm = ({ setToken }) => {
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
     try {
-      const response = await axios.post("https://api.marktube.tv/v1/me", {
-        email,
-        password
-      });
-      const { token } = response.data;
-
-      localStorage.setItem("token", token);
-      setToken(token);
+      await requestSignIn(email, password);
       history.push("/");
-    } catch (error) {
-      if (error.response.data.error === "USER_NOT_EXIST") {
-        setFeedComment("해당하는 유저가 없습니다.");
-      } else if (error.response.data.error === "PASSWORD_NOT_MATCH") {
-        setFeedComment("비밀번호가 틀렸습니다.");
-      } else {
-        setFeedComment("로그인에 문제가 있습니다.");
-      }
-      setFeed(true);
+    } catch (err) {
+      console.log(err);
     }
-  };
-
-  const closeFeed = () => {
-    setFeed(false);
   };
 
   return (
@@ -167,9 +145,7 @@ const SigninForm = ({ setToken }) => {
           </Buttons>
         </Menu>
       </LoginMenu>
-      <Feedback visible={feed} onCloseFeed={closeFeed}>
-        {feedComment}
-      </Feedback>
+      <Feedback visible={feedVisible} />
     </FormArea>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import styled, { css, keyframes } from "styled-components";
+import { setFeedVisible } from "../actions";
 
 const slideUp = keyframes`
   0% {
@@ -48,7 +50,7 @@ const Feed = styled.div`
     `}
 `;
 
-const Feedback = ({ visible, children, onCloseFeed }) => {
+const Feedback = ({ visible, feedComment, setFeedVisible }) => {
   const [localVisible, setLocalVisible] = useState(visible);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const Feedback = ({ visible, children, onCloseFeed }) => {
 
     if (localVisible) {
       hide = setTimeout(() => {
-        onCloseFeed();
+        setFeedVisible();
         clearTimeout(hide);
       }, 1800);
     }
@@ -66,11 +68,16 @@ const Feedback = ({ visible, children, onCloseFeed }) => {
     return () => {
       clearTimeout(hide);
     };
-  }, [visible, localVisible, onCloseFeed]);
+  }, [visible, localVisible, setFeedVisible]);
 
   if (!localVisible) return null;
 
-  return <Feed>{children}</Feed>;
+  return <Feed>{feedComment}</Feed>;
 };
 
-export default Feedback;
+export default connect(
+  state => ({
+    feedComment: state.feed.comment,
+  }),
+  dispatch => ({ setFeedVisible: () => dispatch(setFeedVisible()) }),
+)(Feedback);

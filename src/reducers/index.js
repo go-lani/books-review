@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import token from "./token";
 import loading from "./loading";
+import feed from "./feed";
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   token,
-  loading
+  loading,
+  feed,
 });
 
-export default reducer;
+export default reducers;
