@@ -137,7 +137,7 @@ const CloseButton = styled.button`
   }
 `;
 
-const Popup = ({ visible, onVisible, children }) => {
+const Popup = ({ visible, children, hidePopup }) => {
   const [animate, setAnimate] = useState(false);
   const [localVisible, setLocalVisible] = useState(visible);
 
@@ -153,9 +153,9 @@ const Popup = ({ visible, onVisible, children }) => {
 
   return (
     <PopupLayout>
-      <Dim disappear={!visible} onClick={onVisible} />
+      <Dim disappear={!visible} onClick={hidePopup} />
       <PopupInner disappear={!visible}>
-        <CloseButton onClick={onVisible}>취소</CloseButton>
+        <CloseButton onClick={hidePopup}>취소</CloseButton>
         {children}
       </PopupInner>
     </PopupLayout>
