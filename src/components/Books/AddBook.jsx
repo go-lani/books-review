@@ -1,29 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
-import Inputs from "../Input";
-import Buttons from "../Button";
+import Inputs from "../common/Input";
+import Buttons from "../common/Button";
 import PopupContainer from "../../containers/PopupContainer";
 import { addBook, hidePopup } from "../../actions";
+import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
 import axios from "axios";
-
-const InputBox = styled.div`
-  & + & {
-    margin: 25px 0 0;
-  }
-`;
-
-const Legend = styled.legend`
-  display: block;
-  width: 100%;
-  margin: 0 0 40px;
-  font-size: 3rem;
-  color: #fff;
-`;
-
-const ButtonBox = styled.div`
-  margin: 50px 0 0;
-`;
 
 const AddBook = ({ token, addBook, ...rest }) => {
   const titleRef = React.createRef();

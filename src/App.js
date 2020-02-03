@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from "react-error-boundary";
+import UnAuthedRoute from "./hocs/UnAuthedRoute";
 
 const ErrorFallbackComponent = ({ error }) => <div>{error.message}</div>;
 
@@ -11,7 +12,7 @@ const App = () => (
   <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/signin" component={Signin} />
+        <UnAuthedRoute exact path="/signin" component={Signin} />
         <Route exact path="/" component={Home} />
         <Route component={NotFound} />
       </Switch>
