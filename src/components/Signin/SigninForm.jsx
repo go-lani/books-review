@@ -1,82 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import Inputs from "../Input";
-import Buttons from "../Button";
-import A11yTitle from "../A11yTitle";
-import Feedback from "../Feedback";
-import media from "../../libs/MediaQuery";
-
-const FormArea = styled.div`
-  width: 100%;
-  padding: 40px;
-  background: #35475e;
-
-  ${media.tablet`
-    width: 50%;
-  `}
-
-  ${media.desktop`
-    width: 50%;
-  `}
-`;
-
-const Greeting = styled.p`
-  font-size: 3rem;
-  color: #fff;
-`;
-
-const Form = styled.form`
-  margin: 40px 0 0;
-`;
-
-const InputBox = styled.div`
-  & + & {
-    margin: 40px 0 0;
-  }
-`;
-
-const ButtonBox = styled.div`
-  margin: 30px 0 0;
-
-  ${media.mobile`
-    text-align: center;
-  `}
-`;
-
-const LoginMenu = styled.ul`
-  margin: 30px 0 0;
-  padding: 30px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-`;
-
-const Menu = styled.li`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-
-  & + & {
-    margin: 20px 0 0;
-  }
-
-  ${media.mobile`
-    flex-direction: column;
-    button {
-      margin: 20px 0 0;
-    }
-  `}
-`;
-
-const Question = styled.p`
-  font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.5);
-  padding: 0 10px 0 0;
-
-  ${media.mobile`
-    padding: 0;
-  `}
-`;
+import Inputs from "../common/Input";
+import Buttons from "../common/Button";
+import A11yTitle from "../common/A11yTitle";
+import Feedback from "./Feedback";
+import {
+  FormArea,
+  Greeting,
+  Form,
+  InputBox,
+  ButtonBox,
+  LoginMenu,
+  Menu,
+  Question,
+} from "./SigninFormStyled";
 
 const SigninForm = ({ requestSignIn, feedVisible }) => {
   const emailRef = React.createRef();

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import A11yTitle from "../components/A11yTitle";
+import A11yTitle from "../components/common/A11yTitle";
 
 const StyledContainer = styled.section`
   padding: 60px 30px 30px;

@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { css } from "styled-components";
 import { darken, lighten } from "polished";
 
@@ -7,20 +6,20 @@ const sizes = {
     height: "30px",
     fontSize: "1.2rem",
     lineHeight: "28px",
-    borderRadius: "3px"
+    borderRadius: "3px",
   },
   medium: {
     height: "40px",
     fontSize: "1.6rem",
     lineHeight: "38px",
-    borderRadius: "7px"
+    borderRadius: "7px",
   },
   large: {
     height: "50px",
     fontSize: "2rem",
     lineHeight: "48px",
-    borderRadius: "10px"
-  }
+    borderRadius: "10px",
+  },
 };
 
 const sizeStyles = css`
@@ -39,7 +38,7 @@ const colors = {
   green: "#04d9b2",
   blue: "#0388a6",
   red: "#f20f4b",
-  pink: "#f24162"
+  pink: "#f24162",
 };
 
 const colorStyles = css`
@@ -67,7 +66,7 @@ const colorStyles = css`
   `}
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   display: inline-block;
   width: 100%;
   padding: 0 10px;
@@ -82,18 +81,3 @@ const Button = styled.button`
   ${sizeStyles}
   ${colorStyles}
 `;
-
-const Buttons = ({ size, width, color, children, ...rest }) => {
-  return (
-    <Button size={size} width={width} color={color} {...rest}>
-      {children}
-    </Button>
-  );
-};
-
-Buttons.defaultProps = {
-  color: "black",
-  size: "small"
-};
-
-export default Buttons;
