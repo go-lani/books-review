@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Inputs from "../common/Input";
 import Buttons from "../common/Button";
@@ -29,10 +29,12 @@ const SigninForm = ({ requestSignIn, feedVisible, error }) => {
     try {
       await requestSignIn(email, password);
       history.push("/");
-    } catch (err) {
-      console.log(error);
-    }
+    } catch (err) {}
   };
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   return (
     <FormArea>
