@@ -15,7 +15,7 @@ import {
   Question,
 } from "./SigninFormStyled";
 
-const SigninForm = ({ requestSignIn, feedVisible }) => {
+const SigninForm = ({ requestSignIn, feedVisible, error }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
   const history = useHistory();
@@ -25,11 +25,12 @@ const SigninForm = ({ requestSignIn, feedVisible }) => {
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+
     try {
       await requestSignIn(email, password);
       history.push("/");
     } catch (err) {
-      console.log(err);
+      console.log(error);
     }
   };
 
