@@ -15,7 +15,7 @@ const Home = ({ token }) => {
         <UtilMenu />
       </Header>
       <Container sectionName="책 리스트">
-        <BooksContainer token={token} />}
+        <BooksContainer token={token} />
       </Container>
       <AddBook token={token} />
     </>

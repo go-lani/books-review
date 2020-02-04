@@ -12,7 +12,7 @@ const App = () => (
   <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
     <BrowserRouter>
       <Switch>
-        <UnAuthedRoute exact path="/signin" component={Signin} />
+        <UnAuthedRoute path="/signin" component={Signin} />
         <Route exact path="/" component={Home} />
         <Route component={NotFound} />
       </Switch>
