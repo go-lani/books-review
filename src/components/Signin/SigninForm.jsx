@@ -33,7 +33,7 @@ const SigninForm = ({ requestSignIn, feedVisible, error }) => {
   };
 
   useEffect(() => {
-    console.log(error);
+    console.log("error", error);
   }, [error]);
 
   return (
