@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 import Buttons from "../common/Button";
 import { Li, ImgBox, Title, Author, Message } from "./BookItemStyled";
-import { removeBook } from "../../actions";
+import { removeBookThunk } from "../../actions";
 
 const BookItem = ({ token, book, removeBook }) => {
   return (
@@ -29,17 +28,7 @@ export default connect(
   () => ({}),
   dispatch => ({
     removeBook: async (token, id) => {
-      try {
-        await axios.delete(`https://api.marktube.tv/v1/book/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        dispatch(removeBook(id));
-      } catch (err) {
-        console.log(err);
-      }
+      dispatch(removeBookThunk(token, id));
     },
   }),
 )(BookItem);

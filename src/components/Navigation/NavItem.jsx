@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import axios from "axios";
-import { setToken } from "../../actions";
+import { signOutThunk } from "../../actions";
 
 const StyledNavItem = styled.li`
   float: left;
@@ -35,13 +34,7 @@ export default connect(
   () => ({}),
   dispatch => ({
     signOut: token => {
-      axios.delete("https://api.marktube.tv/v1/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      dispatch(setToken(null));
-      localStorage.removeItem("token");
+      dispatch(signOutThunk(token));
     },
   }),
 )(NavItem);
