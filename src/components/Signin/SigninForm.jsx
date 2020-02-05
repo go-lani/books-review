@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import Inputs from "../common/Input";
 import Buttons from "../common/Button";
@@ -15,7 +15,7 @@ import {
   Question,
 } from "./SigninFormStyled";
 
-const SigninForm = ({ requestSignIn, feedVisible, error }) => {
+const SigninForm = ({ signIn, feedVisible }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
   const history = useHistory();
@@ -27,14 +27,10 @@ const SigninForm = ({ requestSignIn, feedVisible, error }) => {
     const password = passwordRef.current.value;
 
     try {
-      await requestSignIn(email, password);
+      await signIn(email, password);
       history.push("/");
     } catch (err) {}
   };
-
-  useEffect(() => {
-    console.log("error", error);
-  }, [error]);
 
   return (
     <FormArea>
@@ -66,7 +62,7 @@ const SigninForm = ({ requestSignIn, feedVisible, error }) => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} onClick={passLogin} color="green">
+          <Buttons size="medium" width={150} onClick={passLogin} color="red">
             Sign In
           </Buttons>
         </ButtonBox>
