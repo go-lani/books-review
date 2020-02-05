@@ -1,5 +1,5 @@
-import axios from "axios";
 import BookService from "./service/BookService";
+import AuthService from "./service/AuthService";
 
 // TOKEN
 export const SET_TOKEN = "SET_TOKEN";
@@ -25,11 +25,8 @@ export const endLoading = () => ({
 export const signInThunk = (email, password) => async dispatch => {
   try {
     dispatch(startLoading());
-    const response = await axios.post("https://api.marktube.tv/v1/me", {
-      email,
-      password,
-    });
 
+    const response = await AuthService.signIn(email, password);
     const { token } = response.data;
 
     localStorage.setItem("token", token);
@@ -44,11 +41,7 @@ export const signInThunk = (email, password) => async dispatch => {
 };
 
 export const signOutThunk = token => async dispatch => {
-  axios.delete("https://api.marktube.tv/v1/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  AuthService.signOut(token);
   dispatch(setToken(null));
   localStorage.removeItem("token");
 };
