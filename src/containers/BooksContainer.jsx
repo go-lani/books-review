@@ -5,6 +5,7 @@ import { getBooksThunk } from "../actions";
 export default connect(
   state => ({
     books: state.books,
+    token: state.token,
   }),
   dispatch => ({
     getBooks: async token => {

@@ -3,11 +3,11 @@ import NavItem from "./NavItem";
 import withAuth from "../../hocs/withAuth";
 import { NavigationBar } from "./indexStyled";
 
-const Navigation = ({ token }) => {
+const Navigation = () => {
   return (
     <nav>
       <NavigationBar>
-        <NavItem token={token} text={token ? "SignOut" : "SignIn"} />
+        <NavItem />
       </NavigationBar>
     </nav>
   );
