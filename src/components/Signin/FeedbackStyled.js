@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 const slideUp = keyframes`
@@ -25,7 +24,7 @@ const slideDown = keyframes`
   }
 `;
 
-const Feed = styled.div`
+export const Feed = styled.div`
   position: fixed;
   top: 0;
   left: 50%;
@@ -47,30 +46,3 @@ const Feed = styled.div`
       animation-name: ${slideUp};
     `}
 `;
-
-const Feedback = ({ visible, children, onCloseFeed }) => {
-  const [localVisible, setLocalVisible] = useState(visible);
-
-  useEffect(() => {
-    let hide;
-
-    if (localVisible) {
-      hide = setTimeout(() => {
-        onCloseFeed();
-        clearTimeout(hide);
-      }, 1800);
-    }
-
-    setLocalVisible(visible);
-
-    return () => {
-      clearTimeout(hide);
-    };
-  }, [visible, localVisible, onCloseFeed]);
-
-  if (!localVisible) return null;
-
-  return <Feed>{children}</Feed>;
-};
-
-export default Feedback;

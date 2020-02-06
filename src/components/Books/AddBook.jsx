@@ -1,35 +1,20 @@
 import React from "react";
-import styled from "styled-components";
-import Inputs from "../Input";
-import Buttons from "../Button";
-import Popup from "../Popup";
+import { connect } from "react-redux";
+import Inputs from "../common/Input";
+import Buttons from "../common/Button";
+import PopupContainer from "../../containers/PopupContainer";
+import { addBook, hidePopup } from "../../actions";
+import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
+import axios from "axios";
 
-const InputBox = styled.div`
-  & + & {
-    margin: 25px 0 0;
-  }
-`;
-
-const Legend = styled.legend`
-  display: block;
-  width: 100%;
-  margin: 0 0 40px;
-  font-size: 3rem;
-  color: #fff;
-`;
-
-const ButtonBox = styled.div`
-  margin: 50px 0 0;
-`;
-
-const AddBook = props => {
+const AddBook = ({ token, addBook, ...rest }) => {
   const titleRef = React.createRef();
   const messageRef = React.createRef();
   const authorRef = React.createRef();
   const urlRef = React.createRef();
 
   return (
-    <Popup {...props}>
+    <PopupContainer {...rest}>
       <form>
         <fieldset>
           <Legend>Add a Book</Legend>
@@ -81,22 +66,50 @@ const AddBook = props => {
             size="medium"
             width={150}
             color="blue"
-            onClick={e =>
-              props.onAddBook(
-                e,
+            onClick={e => {
+              e.preventDefault();
+
+              addBook(
+                token,
                 titleRef.current.value,
                 messageRef.current.value,
                 authorRef.current.value,
-                urlRef.current.value
-              )
-            }
+                urlRef.current.value,
+              );
+            }}
           >
             ADD
           </Buttons>
         </ButtonBox>
       </form>
-    </Popup>
+    </PopupContainer>
   );
 };
 
-export default AddBook;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    addBook: async (token, title, message, author, url) => {
+      try {
+        const { data } = await axios.post(
+          "https://api.marktube.tv/v1/book",
+          {
+            title,
+            message,
+            author,
+            url,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        dispatch(hidePopup());
+        dispatch(addBook(data));
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  }),
+)(AddBook);

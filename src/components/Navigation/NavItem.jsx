@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import axios from "axios";
 import { setToken } from "../../actions";
 
@@ -21,27 +21,27 @@ const StyledNavItem = styled.li`
   }
 `;
 
-const NavItem = ({ text }) => {
-  const token = useSelector(state => state.token);
-  const dispatch = useDispatch();
-
-  const signOut = () => {
-    console.log(token);
-    axios.delete("https://api.marktube.tv/v1/me", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    dispatch(setToken(null));
-    localStorage.removeItem("token");
-  };
+const NavItem = ({ text, token, signOut }) => {
   return (
     <StyledNavItem>
-      <button type="button" onClick={signOut}>
+      <button type="button" onClick={() => signOut(token)}>
         {text}
       </button>
     </StyledNavItem>
   );
 };
 
-export default NavItem;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    signOut: token => {
+      axios.delete("https://api.marktube.tv/v1/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(setToken(null));
+      localStorage.removeItem("token");
+    },
+  }),
+)(NavItem);
