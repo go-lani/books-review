@@ -20,18 +20,20 @@ const StyledNavItem = styled.li`
   }
 `;
 
-const NavItem = ({ text, token, signOut }) => {
+const NavItem = ({ token, signOut }) => {
   return (
     <StyledNavItem>
       <button type="button" onClick={() => signOut(token)}>
-        {text}
+        {token ? "SignOut" : "SignIn"}
       </button>
     </StyledNavItem>
   );
 };
 
 export default connect(
-  () => ({}),
+  state => ({
+    token: state.token,
+  }),
   dispatch => ({
     signOut: token => {
       dispatch(signOutThunk(token));
