@@ -15,7 +15,7 @@ import {
   Question,
 } from "./SigninFormStyled";
 
-const SigninForm = ({ requestSignIn, feedVisible }) => {
+const SigninForm = ({ signIn, feedVisible }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
   const history = useHistory();
@@ -25,12 +25,11 @@ const SigninForm = ({ requestSignIn, feedVisible }) => {
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+
     try {
-      await requestSignIn(email, password);
+      await signIn(email, password);
       history.push("/");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
@@ -63,7 +62,7 @@ const SigninForm = ({ requestSignIn, feedVisible }) => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} onClick={passLogin} color="green">
+          <Buttons size="medium" width={150} onClick={passLogin} color="red">
             Sign In
           </Buttons>
         </ButtonBox>

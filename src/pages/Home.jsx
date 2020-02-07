@@ -7,7 +7,7 @@ import AddBook from "../components/Books/AddBook";
 import Container from "../layouts/Container";
 import withAuth from "../hocs/withAuth";
 
-const Home = ({ token }) => {
+const Home = () => {
   return (
     <>
       <Header>
@@ -15,9 +15,9 @@ const Home = ({ token }) => {
         <UtilMenu />
       </Header>
       <Container sectionName="책 리스트">
-        <BooksContainer token={token} />}
+        <BooksContainer />
       </Container>
-      <AddBook token={token} />
+      <AddBook />
     </>
   );
 };

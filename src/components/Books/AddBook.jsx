@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import Inputs from "../common/Input";
 import Buttons from "../common/Button";
 import PopupContainer from "../../containers/PopupContainer";
-import { addBook, hidePopup } from "../../actions";
+import { addBookThunk } from "../../actions";
 import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
-import axios from "axios";
 
 const AddBook = ({ token, addBook, ...rest }) => {
   const titleRef = React.createRef();
@@ -87,29 +86,12 @@ const AddBook = ({ token, addBook, ...rest }) => {
 };
 
 export default connect(
-  () => ({}),
+  state => ({
+    token: state.token,
+  }),
   dispatch => ({
-    addBook: async (token, title, message, author, url) => {
-      try {
-        const { data } = await axios.post(
-          "https://api.marktube.tv/v1/book",
-          {
-            title,
-            message,
-            author,
-            url,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        dispatch(hidePopup());
-        dispatch(addBook(data));
-      } catch (err) {
-        console.log(err);
-      }
+    addBook: (token, title, message, author, url) => {
+      dispatch(addBookThunk(token, title, message, author, url));
     },
   }),
 )(AddBook);

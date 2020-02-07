@@ -9,7 +9,7 @@ const withAuth = Component => {
       return <Redirect to="/signin" />;
     }
 
-    return <Component {...props} token={token} />;
+    return <Component {...props} />;
   }
 
   WrappedComponent.displayName = `withAuth(${Component.name})`;
