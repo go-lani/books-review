@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Navigation from "../components/Navigation";
 import UtilMenu from "../components/UtilMenu";
-import BooksContainer from "../containers/BooksContainer";
+import Books from "../components/Books";
 import AddBook from "../components/Books/AddBook";
 import Container from "../layouts/Container";
 import withAuth from "../hocs/withAuth";
@@ -15,7 +15,7 @@ const Home = () => {
         <UtilMenu />
       </Header>
       <Container sectionName="책 리스트">
-        <BooksContainer />
+        <Books />
       </Container>
       <AddBook />
     </>

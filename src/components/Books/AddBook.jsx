@@ -86,9 +86,7 @@ const AddBook = ({ token, addBook, ...rest }) => {
 };
 
 export default connect(
-  state => ({
-    token: state.token,
-  }),
+  () => ({}),
   dispatch => ({
     addBook: (token, title, message, author, url) => {
       dispatch(addBookThunk(token, title, message, author, url));
