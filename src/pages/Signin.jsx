@@ -1,7 +1,7 @@
 import React from "react";
 import SigninIntro from "../components/Signin/SigninIntro";
 import A11yTitle from "../components/common/A11yTitle";
-import SigninFormContainer from "../containers/SigninFormContainer";
+import SigninForm from "../components/Signin/SigninForm";
 import { SignInWrapper, SignInInner, SigninArea } from "./SigninStyled";
 
 const Signin = () => {
@@ -11,7 +11,7 @@ const Signin = () => {
       <SignInInner>
         <SigninArea>
           <SigninIntro />
-          <SigninFormContainer />
+          <SigninForm />
         </SigninArea>
       </SignInInner>
     </SignInWrapper>

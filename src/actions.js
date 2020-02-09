@@ -1,5 +1,6 @@
 import BookService from "./service/BookService";
 import AuthService from "./service/AuthService";
+import { push } from "connected-react-router";
 
 // TOKEN
 export const SET_TOKEN = "SET_TOKEN";
@@ -31,6 +32,7 @@ export const signInThunk = (email, password) => async dispatch => {
 
     localStorage.setItem("token", token);
     dispatch(setToken(token));
+    dispatch(push("/"));
     dispatch(endLoading());
   } catch (error) {
     dispatch(setFeedComment(error.response.data.error));

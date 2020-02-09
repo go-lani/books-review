@@ -8,7 +8,6 @@ const withAuth = Component => {
     if (token === null) {
       return <Redirect to="/signin" />;
     }
-
     return <Component {...props} />;
   }
 

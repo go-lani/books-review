@@ -1,9 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Inputs from "../common/Input";
 import Buttons from "../common/Button";
 import A11yTitle from "../common/A11yTitle";
 import Feedback from "./Feedback";
+import { useDispatch } from "react-redux";
 import {
   FormArea,
   Greeting,
@@ -14,28 +14,28 @@ import {
   Menu,
   Question,
 } from "./SigninFormStyled";
+import { startTokenSaga } from "../../redux/modules/auth";
 
-const SigninForm = ({ signIn, feedVisible }) => {
+const SigninForm = ({ feedVisible }) => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
-  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const passLogin = async e => {
+  const onHandleSubmit = e => {
     e.preventDefault();
 
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const info = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
 
-    try {
-      await signIn(email, password);
-      history.push("/");
-    } catch (err) {}
+    dispatch(startTokenSaga(info));
   };
 
   return (
     <FormArea>
       <Greeting>SignIn</Greeting>
-      <Form>
+      <Form onSubmit={onHandleSubmit}>
         <fieldset>
           <A11yTitle as="legend">로그인 정보 입력영역</A11yTitle>
           <InputBox>
@@ -43,6 +43,7 @@ const SigninForm = ({ signIn, feedVisible }) => {
               ref={emailRef}
               type="email"
               id="email"
+              name="email"
               placeHolder="Enter Your E-mail"
               essential
             >
@@ -54,6 +55,7 @@ const SigninForm = ({ signIn, feedVisible }) => {
               ref={passwordRef}
               type="password"
               id="password"
+              name="password"
               placeHolder="Enter Your Password"
               essential
             >
@@ -62,7 +64,7 @@ const SigninForm = ({ signIn, feedVisible }) => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} onClick={passLogin} color="red">
+          <Buttons size="medium" width={150} color="red">
             Sign In
           </Buttons>
         </ButtonBox>

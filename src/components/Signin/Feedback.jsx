@@ -29,8 +29,6 @@ const Feedback = ({ visible, feedComment, setFeedVisible }) => {
 };
 
 export default connect(
-  state => ({
-    feedComment: state.feed.comment,
-  }),
+  () => ({}),
   dispatch => ({ setFeedVisible: () => dispatch(setFeedVisible()) }),
 )(Feedback);
