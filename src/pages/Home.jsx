@@ -4,7 +4,7 @@ import Navigation from "../components/Navigation";
 import UtilMenu from "../components/UtilMenu";
 import Books from "../components/Books";
 import AddBook from "../components/Books/AddBook";
-import Container from "../layouts/Container";
+import MainLayout from "../layouts/MainLayout";
 import withAuth from "../hocs/withAuth";
 
 const Home = () => {
@@ -14,9 +14,9 @@ const Home = () => {
         <Navigation />
         <UtilMenu />
       </Header>
-      <Container sectionName="책 리스트">
+      <MainLayout sectionName="책 리스트">
         <Books />
-      </Container>
+      </MainLayout>
       <AddBook />
     </>
   );

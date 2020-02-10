@@ -1,10 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
 import Buttons from "../common/Button";
 import { Li, ImgBox, Title, Author, Message } from "./BookItemStyled";
-import { removeBookThunk } from "../../actions";
+import { removeBookSaga } from "../../redux/modules/books";
+import { useDispatch } from "react-redux";
 
-const BookItem = ({ token, book, removeBook }) => {
+const BookItem = ({ book, removeBook }) => {
+  const dispatch = useDispatch();
+
+  function remove(id) {
+    dispatch(removeBookSaga(id));
+  }
+
   return (
     <Li>
       <ImgBox>
@@ -13,22 +19,11 @@ const BookItem = ({ token, book, removeBook }) => {
       <Title>{book.title}</Title>
       <Author>저자 {book.author}</Author>
       <Message>{book.message}</Message>
-      <Buttons
-        size="small"
-        color="pink"
-        onClick={() => removeBook(token, book.bookId)}
-      >
+      <Buttons size="small" color="pink" onClick={() => remove(book.bookId)}>
         Remove
       </Buttons>
     </Li>
   );
 };
 
-export default connect(
-  () => ({}),
-  dispatch => ({
-    removeBook: async (token, id) => {
-      dispatch(removeBookThunk(token, id));
-    },
-  }),
-)(BookItem);
+export default BookItem;

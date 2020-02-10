@@ -3,7 +3,7 @@ import { createAction, createActions, handleActions } from "redux-actions";
 import BookService from "../../service/BookService";
 
 const options = {
-  prefix: "reactjs-books-review/books",
+  prefix: "books-review/books",
 };
 
 const initialState = {
@@ -18,12 +18,13 @@ const { success, pending, fail } = createActions(
   },
   "PENDING",
   "FAIL",
+  options,
 );
 
 const books = handleActions(
   {
     PENDING: (state, action) => ({
-      books: [],
+      books: state.books ? state.books : [],
       loading: true,
       error: null,
     }),
@@ -42,9 +43,8 @@ const books = handleActions(
   options,
 );
 
-function* getBooksSaga() {
+function* getBooks() {
   const token = yield select(state => state.auth.token);
-  console.log(token);
 
   try {
     yield put(pending());
@@ -55,10 +55,52 @@ function* getBooksSaga() {
   }
 }
 
-export const startBooksSaga = createAction("START_BOOKS_SAGA");
+function* addBook(action) {
+  const token = yield select(state => state.auth.token);
+  const books = yield select(state => state.books.books);
+  const { title, message, author, url } = action.payload;
+
+  try {
+    yield put(pending());
+    const { data } = yield call(
+      BookService.addBook,
+      token,
+      title,
+      message,
+      author,
+      url,
+    );
+
+    yield put(success([...books, data]));
+  } catch (error) {
+    yield put(fail(error));
+  }
+}
+
+function* removeBook(action) {
+  const token = yield select(state => state.auth.token);
+  const books = yield select(state => state.books.books);
+  const id = action.payload;
+
+  const newBooks = books.filter(book => book.bookId !== id);
+
+  try {
+    yield put(pending());
+    yield call(BookService.removeBook, token, id);
+    yield put(success(newBooks));
+  } catch (error) {
+    yield put(fail(error));
+  }
+}
+
+export const getBooksSaga = createAction("GET_BOOKS_SAGA");
+export const addBookSaga = createAction("ADD_BOOKS_SAGA");
+export const removeBookSaga = createAction("REMOVE_BOOKS_SAGA");
 
 export function* booksSaga() {
-  yield takeLatest("START_BOOKS_SAGA", getBooksSaga);
+  yield takeLatest("GET_BOOKS_SAGA", getBooks);
+  yield takeLatest("ADD_BOOKS_SAGA", addBook);
+  yield takeLatest("REMOVE_BOOKS_SAGA", removeBook);
 }
 
 export default books;
