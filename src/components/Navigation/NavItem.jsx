@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { endTokenSaga } from "../../redux/modules/auth";
+import { signOutSaga } from "../../redux/modules/auth";
 import { useDispatch } from "react-redux";
 
 const StyledNavItem = styled.li`
@@ -24,7 +24,7 @@ const NavItem = () => {
   const dispatch = useDispatch();
 
   const onClick = () => {
-    dispatch(endTokenSaga());
+    dispatch(signOutSaga());
   };
   return (
     <StyledNavItem>

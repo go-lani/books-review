@@ -19,6 +19,8 @@ export default function create() {
         token,
         loading: false,
         error: null,
+        feedMessage: null,
+        feedVisible: false,
       },
       books: {
         books: [],
