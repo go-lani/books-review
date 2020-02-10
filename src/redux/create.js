@@ -27,6 +27,10 @@ export default function create() {
         loading: false,
         error: null,
       },
+      popup: {
+        addPopupVisible: false,
+        error: null,
+      },
     },
     composeWithDevTools(
       applyMiddleware(sagaMiddleware, routerMiddleware(history)),

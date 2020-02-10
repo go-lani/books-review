@@ -1,19 +1,41 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import Inputs from "../common/Input";
 import Buttons from "../common/Button";
-import PopupContainer from "../../containers/PopupContainer";
-import { addBookThunk } from "../../actions";
+import Popup from "../Popup";
+import { hideAddPopupSaga } from "../../redux/modules/popup";
+import { addBookSaga } from "../../redux/modules/books";
 import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
+import { useDispatch } from "react-redux";
 
-const AddBook = ({ token, addBook, ...rest }) => {
+const AddBook = () => {
   const titleRef = React.createRef();
   const messageRef = React.createRef();
   const authorRef = React.createRef();
   const urlRef = React.createRef();
+  const dispatch = useDispatch();
+
+  const addPopupVisible = useSelector(state => state.popup.addPopupVisible);
+
+  function hide() {
+    dispatch(hideAddPopupSaga());
+  }
+
+  function addBook(e) {
+    e.preventDefault();
+    const addbookInfo = {
+      title: titleRef.current.value,
+      message: messageRef.current.value,
+      author: authorRef.current.value,
+      url: urlRef.current.value,
+    };
+
+    dispatch(addBookSaga(addbookInfo));
+    hide();
+  }
 
   return (
-    <PopupContainer {...rest}>
+    <Popup visible={addPopupVisible} hide={hide}>
       <form>
         <fieldset>
           <Legend>Add a Book</Legend>
@@ -61,35 +83,13 @@ const AddBook = ({ token, addBook, ...rest }) => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons
-            size="medium"
-            width={150}
-            color="blue"
-            onClick={e => {
-              e.preventDefault();
-
-              addBook(
-                token,
-                titleRef.current.value,
-                messageRef.current.value,
-                authorRef.current.value,
-                urlRef.current.value,
-              );
-            }}
-          >
+          <Buttons size="medium" width={150} color="blue" onClick={addBook}>
             ADD
           </Buttons>
         </ButtonBox>
       </form>
-    </PopupContainer>
+    </Popup>
   );
 };
 
-export default connect(
-  () => ({}),
-  dispatch => ({
-    addBook: (token, title, message, author, url) => {
-      dispatch(addBookThunk(token, title, message, author, url));
-    },
-  }),
-)(AddBook);
+export default AddBook;

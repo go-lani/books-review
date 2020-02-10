@@ -1,4 +1,4 @@
-import { select, put, call, takeLatest, takeEvery } from "redux-saga/effects";
+import { select, put, call, takeLatest } from "redux-saga/effects";
 import { createAction, createActions, handleActions } from "redux-actions";
 import AuthService from "../../service/AuthService";
 import { push } from "connected-react-router";
