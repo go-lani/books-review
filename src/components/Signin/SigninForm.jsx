@@ -14,7 +14,7 @@ import {
   Menu,
   Question,
 } from "./SigninFormStyled";
-import { startTokenSaga } from "../../redux/modules/auth";
+import { signInSaga } from "../../redux/modules/auth";
 
 const SigninForm = ({ feedVisible }) => {
   const emailRef = React.createRef();
@@ -29,7 +29,7 @@ const SigninForm = ({ feedVisible }) => {
       password: passwordRef.current.value,
     };
 
-    dispatch(startTokenSaga(info));
+    dispatch(signInSaga(info));
   };
 
   return (

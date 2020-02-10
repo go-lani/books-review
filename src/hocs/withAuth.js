@@ -2,12 +2,19 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const withAuth = Component => {
+const withAuth = (Component, isSignIn = true) => {
   function WrappedComponent(props) {
-    const token = useSelector(state => state.token);
-    if (token === null) {
-      return <Redirect to="/signin" />;
+    const token = useSelector(state => state.auth.token);
+    if (isSignIn) {
+      if (token === null) {
+        return <Redirect to="/signin" />;
+      }
+    } else {
+      if (token !== null) {
+        return <Redirect to="/" />;
+      }
     }
+
     return <Component {...props} />;
   }
 

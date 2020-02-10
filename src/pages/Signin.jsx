@@ -3,6 +3,7 @@ import SigninIntro from "../components/Signin/SigninIntro";
 import A11yTitle from "../components/common/A11yTitle";
 import SigninForm from "../components/Signin/SigninForm";
 import { SignInWrapper, SignInInner, SigninArea } from "./SigninStyled";
+import withAuth from "../hocs/withAuth";
 
 const Signin = () => {
   return (
@@ -18,4 +19,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default withAuth(Signin, false);
