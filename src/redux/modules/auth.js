@@ -1,4 +1,4 @@
-import { select, put, call, takeLatest } from "redux-saga/effects";
+import { select, put, call, takeLatest, takeEvery } from "redux-saga/effects";
 import { createAction, createActions, handleActions } from "redux-actions";
 import AuthService from "../../service/AuthService";
 import { push } from "connected-react-router";
@@ -11,6 +11,8 @@ const initialState = {
   token: null,
   loading: true,
   error: null,
+  feedMessage: null,
+  feedVisible: false,
 };
 
 const { success, pending, fail } = createActions(
@@ -28,16 +30,22 @@ const auth = handleActions(
       token: state.token ? state.token : null,
       loading: true,
       error: null,
+      feedMessage: null,
+      feedVisible: false,
     }),
     SUCCESS: (state, action) => ({
       token: action.payload.token,
       loading: false,
       error: null,
+      feedMessage: null,
+      feedVisible: false,
     }),
     FAIL: (state, action) => ({
       token: null,
       loading: false,
       error: action.payload,
+      feedMessage: action.payload.response.data.error,
+      feedVisible: true,
     }),
   },
   initialState,
@@ -57,7 +65,7 @@ function* signIn(action) {
   }
 }
 
-function* signOut(action) {
+function* signOut() {
   const token = yield select(state => state.auth.token);
 
   try {

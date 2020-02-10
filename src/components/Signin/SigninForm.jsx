@@ -1,9 +1,9 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Inputs from "../common/Input";
 import Buttons from "../common/Button";
 import A11yTitle from "../common/A11yTitle";
 import Feedback from "./Feedback";
-import { useDispatch } from "react-redux";
 import {
   FormArea,
   Greeting,
@@ -16,19 +16,19 @@ import {
 } from "./SigninFormStyled";
 import { signInSaga } from "../../redux/modules/auth";
 
-const SigninForm = ({ feedVisible }) => {
+const SigninForm = () => {
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
   const dispatch = useDispatch();
+  const feedVisible = useSelector(state => state.auth.feedVisible);
 
-  const onHandleSubmit = e => {
+  const onHandleSubmit = async e => {
     e.preventDefault();
 
     const info = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-
     dispatch(signInSaga(info));
   };
 
