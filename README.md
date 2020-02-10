@@ -73,6 +73,6 @@ actions - 비동기 처리 부분을 actions로 이동 및 분리
 ### day6
 <hr />
 
-react-actions를 활용 하여 ducks pattern 적용
-하나의 모듈로 관심사 분리하여 상태관리
-redux-saga 적용
+- react-actions를 활용 하여 ducks pattern 적용
+- 하나의 모듈로 관심사 분리하여 상태관리
+- redux-saga 적용
