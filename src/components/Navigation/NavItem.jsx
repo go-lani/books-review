@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { signOutSaga } from "../../redux/modules/auth";
-import { useDispatch } from "react-redux";
 
 const StyledNavItem = styled.li`
   float: left;
@@ -20,19 +18,12 @@ const StyledNavItem = styled.li`
   }
 `;
 
-const NavItem = () => {
-  const dispatch = useDispatch();
-
-  const onClick = () => {
-    dispatch(signOutSaga());
-  };
-  return (
-    <StyledNavItem>
-      <button type="button" onClick={onClick}>
-        SignOut
-      </button>
-    </StyledNavItem>
-  );
-};
+const NavItem = ({ signOut }) => (
+  <StyledNavItem>
+    <button type="button" onClick={signOut}>
+      SignOut
+    </button>
+  </StyledNavItem>
+);
 
 export default NavItem;

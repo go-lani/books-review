@@ -1,71 +1,65 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Inputs from "../common/Input";
-import Buttons from "../common/Button";
+import React, { useState } from "react";
+import Inputs from "../Common/Input";
+import Buttons from "../Common/Button";
 import Popup from "../Popup";
-import { hideAddPopupSaga } from "../../redux/modules/popup";
-import { addBookSaga } from "../../redux/modules/books";
 import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
-import { useDispatch } from "react-redux";
 
-const AddBook = () => {
-  const titleRef = React.createRef();
-  const messageRef = React.createRef();
-  const authorRef = React.createRef();
-  const urlRef = React.createRef();
-  const dispatch = useDispatch();
+const AddBook = ({ visible, hidePopup, addBook }) => {
+  const [bookInfo, setBookInfo] = useState({
+    title: null,
+    message: null,
+    author: null,
+    url: null,
+  });
 
-  const addPopupVisible = useSelector(state => state.popup.addPopupVisible);
-
-  function hide() {
-    dispatch(hideAddPopupSaga());
+  function onHandledChange(e) {
+    setBookInfo({
+      ...bookInfo,
+      [e.target.name]: e.target.value,
+    });
   }
 
-  function addBook(e) {
-    e.preventDefault();
-    const addbookInfo = {
-      title: titleRef.current.value,
-      message: messageRef.current.value,
-      author: authorRef.current.value,
-      url: urlRef.current.value,
-    };
-
-    dispatch(addBookSaga(addbookInfo));
-    hide();
+  function onHandledSubmit(event) {
+    addBook(bookInfo);
+    hidePopup();
+    event.preventDefault();
   }
 
   return (
-    <Popup visible={addPopupVisible} hide={hide}>
-      <form>
+    <Popup visible={visible} hide={hidePopup}>
+      <form onSubmit={onHandledSubmit}>
         <fieldset>
           <Legend>Add a Book</Legend>
           <InputBox>
             <Inputs
-              ref={titleRef}
               type="text"
               id="title"
+              name="title"
               placeHolder="Enter Book Title"
               essential
+              onChange={onHandledChange}
             >
               Title
             </Inputs>
           </InputBox>
           <InputBox>
             <Inputs
-              ref={messageRef}
               type="text"
-              id="Message"
+              id="message"
+              name="message"
               placeHolder="Enter Book Message"
+              onChange={onHandledChange}
             >
               Message
             </Inputs>
           </InputBox>
           <InputBox>
             <Inputs
-              ref={authorRef}
               type="text"
-              id="Author"
+              id="author"
+              name="author"
               placeHolder="Enter Book Author"
+              onChange={onHandledChange}
               essential
             >
               Author
@@ -73,17 +67,23 @@ const AddBook = () => {
           </InputBox>
           <InputBox>
             <Inputs
-              ref={urlRef}
               type="text"
-              id="URL"
+              id="url"
+              name="url"
               placeHolder="Enter Book URL"
+              onChange={onHandledChange}
             >
               URL
             </Inputs>
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} color="blue" onClick={addBook}>
+          <Buttons
+            size="medium"
+            width={150}
+            color="blue"
+            // onClick={handleAddBook}
+          >
             ADD
           </Buttons>
         </ButtonBox>
