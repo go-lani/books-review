@@ -1,28 +1,12 @@
 import React from "react";
-import Button from "../common/Button";
-import { showAddPopupSaga } from "../../redux/modules/popup";
-import { useDispatch } from "react-redux";
+import Button from "../Common/Button";
 
-const UtilMenu = () => {
-  const dispatch = useDispatch();
-
-  const click = async () => {
-    dispatch(showAddPopupSaga());
-  };
+const UtilMenu = ({ showAddPopup }) => {
   return (
-    <Button size="medium" color="blue" width="120" onClick={click}>
+    <Button size="medium" color="blue" width="120" onClick={showAddPopup}>
       ADD
     </Button>
   );
 };
-
-// export default connect(
-//   () => ({}),
-//   dispatch => ({
-//     showPopup: () => {
-//       dispatch(showPopup());
-//     },
-//   }),
-// )(UtilMenu);
 
 export default UtilMenu;

@@ -1,8 +1,7 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Inputs from "../common/Input";
-import Buttons from "../common/Button";
-import A11yTitle from "../common/A11yTitle";
+import React, { useState } from "react";
+import Inputs from "../Common/Input";
+import Buttons from "../Common/Button";
+import A11yTitle from "../Common/A11yTitle";
 import Feedback from "./Feedback";
 import {
   FormArea,
@@ -14,23 +13,21 @@ import {
   Menu,
   Question,
 } from "./SigninFormStyled";
-import { signInSaga } from "../../redux/modules/auth";
 
-const SigninForm = () => {
-  const emailRef = React.createRef();
-  const passwordRef = React.createRef();
-  const dispatch = useDispatch();
-  const feedVisible = useSelector(state => state.auth.feedVisible);
+const SigninForm = ({ signIn, feedVisible }) => {
+  const [info, setInfo] = useState({
+    email: null,
+    password: null,
+  });
 
-  const onHandleSubmit = async e => {
+  function onHandledChange(e) {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  }
+
+  function onHandleSubmit(e) {
+    signIn(info);
     e.preventDefault();
-
-    const info = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    };
-    dispatch(signInSaga(info));
-  };
+  }
 
   return (
     <FormArea>
@@ -40,23 +37,25 @@ const SigninForm = () => {
           <A11yTitle as="legend">로그인 정보 입력영역</A11yTitle>
           <InputBox>
             <Inputs
-              ref={emailRef}
               type="email"
               id="email"
               name="email"
               placeHolder="Enter Your E-mail"
+              onChange={onHandledChange}
               essential
+              val={info.email}
             >
               E-MAIL
             </Inputs>
           </InputBox>
           <InputBox>
             <Inputs
-              ref={passwordRef}
               type="password"
               id="password"
               name="password"
               placeHolder="Enter Your Password"
+              onChange={onHandledChange}
+              val={info.password}
               essential
             >
               PASSWORD

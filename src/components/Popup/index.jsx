@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PopupLayout, Dim, PopupInner, CloseButton } from "./indexStyled";
 
-const Popup = ({ visible, children, hide }) => {
+const Popup = ({ visible, hide, children }) => {
   const [animate, setAnimate] = useState(false);
   const [localVisible, setLocalVisible] = useState(visible);
 

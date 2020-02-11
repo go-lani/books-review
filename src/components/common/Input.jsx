@@ -1,33 +1,36 @@
 import React, { useState } from "react";
 import { Label, Input } from "./InputStyled";
 
-const Inputs = React.forwardRef(
-  ({ type, id, essential, children, placeHolder }, ref) => {
-    const [active, setActive] = useState(false);
+const Inputs = ({
+  type,
+  id,
+  name,
+  essential,
+  children,
+  placeHolder,
+  onChange,
+  val,
+}) => {
+  const [active, setActive] = useState(false);
 
-    const valueCheck = () => {
-      if (ref.current.value !== "") setActive(true);
-      else setActive(false);
-    };
-
-    return (
-      <>
-        <Label htmlFor={id}>
-          {children}
-          {essential && <span className="ess">*</span>}
-        </Label>
-        <Input
-          ref={ref}
-          type={type}
-          id={id}
-          placeholder={placeHolder}
-          onBlur={valueCheck}
-          onFocus={() => setActive(true)}
-          active={active}
-        />
-      </>
-    );
-  },
-);
+  return (
+    <>
+      <Label htmlFor={id}>
+        {children}
+        {essential && <span className="ess">*</span>}
+      </Label>
+      <Input
+        type={type}
+        id={id}
+        name={name}
+        placeholder={placeHolder}
+        onBlur={() => (val ? setActive(true) : setActive(false))}
+        onFocus={() => setActive(true)}
+        active={active}
+        onChange={onChange}
+      />
+    </>
+  );
+};
 
 export default Inputs;

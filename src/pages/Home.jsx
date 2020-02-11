@@ -1,23 +1,18 @@
 import React from "react";
-import Header from "../components/Header";
-import Navigation from "../components/Navigation";
-import UtilMenu from "../components/UtilMenu";
-import Books from "../components/Books";
-import AddBook from "../components/Books/AddBook";
+import HeaderContainer from "../containers/HeaderContainer";
+import BooksContainer from "../containers/BooksContainer";
+import AddBookContainer from "../containers/AddBookContainer";
 import MainLayout from "../layouts/MainLayout";
 import withAuth from "../hocs/withAuth";
 
 const Home = () => {
   return (
     <>
-      <Header>
-        <Navigation />
-        <UtilMenu />
-      </Header>
+      <HeaderContainer />
       <MainLayout sectionName="책 리스트">
-        <Books />
+        <BooksContainer />
       </MainLayout>
-      <AddBook />
+      <AddBookContainer />
     </>
   );
 };
