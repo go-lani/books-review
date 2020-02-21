@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import Buttons from "../common/Button";
+import Buttons from "../Common/Button";
 import { Li, ImgBox, Title, Author, Message } from "./BookItemStyled";
-import { removeBookThunk } from "../../actions";
 
-const BookItem = ({ token, book, removeBook }) => {
+const BookItem = ({ book, removeBook }) => {
   return (
     <Li>
       <ImgBox>
@@ -16,7 +14,7 @@ const BookItem = ({ token, book, removeBook }) => {
       <Buttons
         size="small"
         color="pink"
-        onClick={() => removeBook(token, book.bookId)}
+        onClick={() => removeBook(book.bookId)}
       >
         Remove
       </Buttons>
@@ -24,11 +22,4 @@ const BookItem = ({ token, book, removeBook }) => {
   );
 };
 
-export default connect(
-  () => ({}),
-  dispatch => ({
-    removeBook: async (token, id) => {
-      dispatch(removeBookThunk(token, id));
-    },
-  }),
-)(BookItem);
+export default BookItem;

@@ -10,7 +10,7 @@
 - styled-component와 polished 라이브러리를 사용하여 UI Styling
 - 미디어 쿼리를 활용하여 반응형 레이아웃 구현
 
-<br>
+<br />
 
 ### day2
 <hr />
@@ -18,7 +18,7 @@
 - 로그인 기능 추가
 - 로그인 에러 처리 피드백 얼럿 컴포넌트 생성(애니메이션 추가)
 
-<br>
+<br />
 
 ### day3
 <hr />
@@ -58,6 +58,7 @@
 <br>
 로그인 후 메인페이지에서 URL로 접근하여 로그인 페이지 이동시 홈화면으로 리다이렉팅
 
+<br />
 
 ### day5
 <hr />
@@ -66,3 +67,12 @@
 
 service - 로그인 및 책 관련 요청
 actions - 비동기 처리 부분을 actions로 이동 및 분리
+
+<br />
+
+### day6
+<hr />
+
+- react-actions를 활용 하여 ducks pattern 적용
+- 하나의 모듈로 관심사 분리하여 상태관리
+- redux-saga 적용

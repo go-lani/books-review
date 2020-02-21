@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PopupLayout, Dim, PopupInner, CloseButton } from "./indexStyled";
 
-const Popup = ({ visible, children, hidePopup }) => {
+const Popup = ({ visible, hide, children }) => {
   const [animate, setAnimate] = useState(false);
   const [localVisible, setLocalVisible] = useState(visible);
 
@@ -17,9 +17,9 @@ const Popup = ({ visible, children, hidePopup }) => {
 
   return (
     <PopupLayout>
-      <Dim disappear={!visible} onClick={hidePopup} />
+      <Dim disappear={!visible} onClick={hide} />
       <PopupInner disappear={!visible}>
-        <CloseButton onClick={hidePopup}>취소</CloseButton>
+        <CloseButton onClick={hide}>취소</CloseButton>
         {children}
       </PopupInner>
     </PopupLayout>

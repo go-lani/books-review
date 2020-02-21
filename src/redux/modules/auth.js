@@ -1,0 +1,96 @@
+import { select, put, call, takeLatest } from "redux-saga/effects";
+import { createAction, createActions, handleActions } from "redux-actions";
+import AuthService from "../../service/AuthService";
+import { push } from "connected-react-router";
+
+const options = {
+  prefix: "books-review/auth",
+};
+
+const initialState = {
+  token: null,
+  loading: true,
+  error: null,
+  feedMessage: null,
+  feedVisible: false,
+};
+
+const { success, pending, fail } = createActions(
+  {
+    SUCCESS: token => ({ token }),
+  },
+  "PENDING",
+  "FAIL",
+  options,
+);
+
+// 필요한게 있을떈 통으로 해야된다
+// 이유는 예전에 action을 만들때 아래와 같은 코드였는데 undefined 일때 initialState를 선언하는 것과 같이
+// 이미 token이란 값이 있다면 다른 객체의 키 값들은 선언이 안된다는 점이 있다.
+// auth = (state = initialState) => {
+
+// }
+
+const auth = handleActions(
+  {
+    PENDING: (state, action) => ({
+      token: state.token ? state.token : null,
+      loading: true,
+      error: null,
+      feedMessage: null,
+      feedVisible: false,
+    }),
+    SUCCESS: (state, action) => ({
+      token: action.payload.token,
+      loading: false,
+      error: null,
+      feedMessage: null,
+      feedVisible: false,
+    }),
+    FAIL: (state, action) => ({
+      token: null,
+      loading: false,
+      error: action.payload,
+      feedMessage: action.payload.response.data.error,
+      feedVisible: true,
+    }),
+  },
+  initialState,
+  options,
+);
+
+function* signIn(action) {
+  try {
+    yield put(pending());
+    const res = yield call(AuthService.signIn, action.payload);
+    const { token } = res.data;
+    yield put(success(token));
+    localStorage.setItem("token", token);
+    yield put(push("/"));
+  } catch (error) {
+    yield put(fail(error));
+  }
+}
+
+function* signOut() {
+  const token = yield select(state => state.auth.token);
+
+  try {
+    yield put(pending());
+    yield call(AuthService.signOut, token);
+    yield put(success(null));
+    localStorage.removeItem("token");
+  } catch (error) {
+    yield put(fail(error));
+  }
+}
+
+export const signInSaga = createAction("SIGN_IN_SAGA");
+export const signOutSaga = createAction("SIGN_OUT_SAGA");
+
+export function* authSaga() {
+  yield takeLatest("SIGN_IN_SAGA", signIn);
+  yield takeLatest("SIGN_OUT_SAGA", signOut);
+}
+
+export default auth;

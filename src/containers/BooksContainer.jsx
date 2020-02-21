@@ -1,15 +1,17 @@
 import { connect } from "react-redux";
-import books from "../components/Books/";
-import { getBooksThunk } from "../actions";
+import Books from "../components/Books/";
+import { getBooksSaga, removeBookSaga } from "../redux/modules/books";
 
 export default connect(
   state => ({
-    books: state.books,
-    token: state.token,
+    books: state.books.books,
   }),
   dispatch => ({
-    getBooks: async token => {
-      dispatch(getBooksThunk(token));
+    getBooks: async () => {
+      dispatch(getBooksSaga());
+    },
+    removeBook: id => {
+      dispatch(removeBookSaga(id));
     },
   }),
-)(books);
+)(Books);

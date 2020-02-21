@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
-import { signOutThunk } from "../../actions";
 
 const StyledNavItem = styled.li`
   float: left;
@@ -20,23 +18,12 @@ const StyledNavItem = styled.li`
   }
 `;
 
-const NavItem = ({ token, signOut }) => {
-  return (
-    <StyledNavItem>
-      <button type="button" onClick={() => signOut(token)}>
-        {token ? "SignOut" : "SignIn"}
-      </button>
-    </StyledNavItem>
-  );
-};
+const NavItem = ({ signOut }) => (
+  <StyledNavItem>
+    <button type="button" onClick={signOut}>
+      SignOut
+    </button>
+  </StyledNavItem>
+);
 
-export default connect(
-  state => ({
-    token: state.token,
-  }),
-  dispatch => ({
-    signOut: token => {
-      dispatch(signOutThunk(token));
-    },
-  }),
-)(NavItem);
+export default NavItem;

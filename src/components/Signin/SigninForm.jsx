@@ -1,8 +1,7 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import Inputs from "../common/Input";
-import Buttons from "../common/Button";
-import A11yTitle from "../common/A11yTitle";
+import React, { useState } from "react";
+import Inputs from "../Common/Input";
+import Buttons from "../Common/Button";
+import A11yTitle from "../Common/A11yTitle";
 import Feedback from "./Feedback";
 import {
   FormArea,
@@ -16,45 +15,47 @@ import {
 } from "./SigninFormStyled";
 
 const SigninForm = ({ signIn, feedVisible }) => {
-  const emailRef = React.createRef();
-  const passwordRef = React.createRef();
-  const history = useHistory();
+  const [info, setInfo] = useState({
+    email: null,
+    password: null,
+  });
 
-  const passLogin = async e => {
+  function onHandledChange(e) {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  }
+
+  function onHandleSubmit(e) {
+    signIn(info);
     e.preventDefault();
-
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
-    try {
-      await signIn(email, password);
-      history.push("/");
-    } catch (err) {}
-  };
+  }
 
   return (
     <FormArea>
       <Greeting>SignIn</Greeting>
-      <Form>
+      <Form onSubmit={onHandleSubmit}>
         <fieldset>
           <A11yTitle as="legend">로그인 정보 입력영역</A11yTitle>
           <InputBox>
             <Inputs
-              ref={emailRef}
               type="email"
               id="email"
+              name="email"
               placeHolder="Enter Your E-mail"
+              onChange={onHandledChange}
               essential
+              val={info.email}
             >
               E-MAIL
             </Inputs>
           </InputBox>
           <InputBox>
             <Inputs
-              ref={passwordRef}
               type="password"
               id="password"
+              name="password"
               placeHolder="Enter Your Password"
+              onChange={onHandledChange}
+              val={info.password}
               essential
             >
               PASSWORD
@@ -62,7 +63,7 @@ const SigninForm = ({ signIn, feedVisible }) => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons size="medium" width={150} onClick={passLogin} color="red">
+          <Buttons size="medium" width={150} color="red">
             Sign In
           </Buttons>
         </ButtonBox>

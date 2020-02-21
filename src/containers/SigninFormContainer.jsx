@@ -1,16 +1,14 @@
 import { connect } from "react-redux";
 import SigninForm from "../components/Signin/SigninForm";
-import { signInThunk } from "../actions";
+import { signInSaga } from "../redux/modules/auth";
 
 export default connect(
   state => ({
-    loading: state.loading,
-    feedVisible: state.feed.visible,
-    error: state.feed.comment,
+    feedVisible: state.auth.feedVisible,
   }),
   dispatch => ({
-    signIn: async (email, password) => {
-      dispatch(signInThunk(email, password));
+    signIn: async info => {
+      dispatch(signInSaga(info));
     },
   }),
 )(SigninForm);

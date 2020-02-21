@@ -1,8 +1,9 @@
 import React from "react";
 import SigninIntro from "../components/Signin/SigninIntro";
-import A11yTitle from "../components/common/A11yTitle";
+import A11yTitle from "../components/Common/A11yTitle";
 import SigninFormContainer from "../containers/SigninFormContainer";
 import { SignInWrapper, SignInInner, SigninArea } from "./SigninStyled";
+import withAuth from "../hocs/withAuth";
 
 const Signin = () => {
   return (
@@ -18,4 +19,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default withAuth(Signin, false);

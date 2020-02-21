@@ -1,21 +1,12 @@
 import React from "react";
-import Button from "../common/Button";
-import { connect } from "react-redux";
-import { showPopup } from "../../actions";
+import Button from "../Common/Button";
 
-const UtilMenu = ({ showPopup }) => {
+const UtilMenu = ({ showAddPopup }) => {
   return (
-    <Button size="medium" color="blue" width="120" onClick={showPopup}>
+    <Button size="medium" color="blue" width="120" onClick={showAddPopup}>
       ADD
     </Button>
   );
 };
 
-export default connect(
-  () => ({}),
-  dispatch => ({
-    showPopup: () => {
-      dispatch(showPopup());
-    },
-  }),
-)(UtilMenu);
+export default UtilMenu;

@@ -1,49 +1,65 @@
-import React from "react";
-import { connect } from "react-redux";
-import Inputs from "../common/Input";
-import Buttons from "../common/Button";
-import PopupContainer from "../../containers/PopupContainer";
-import { addBookThunk } from "../../actions";
+import React, { useState } from "react";
+import Inputs from "../Common/Input";
+import Buttons from "../Common/Button";
+import Popup from "../Popup";
 import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
 
-const AddBook = ({ token, addBook, ...rest }) => {
-  const titleRef = React.createRef();
-  const messageRef = React.createRef();
-  const authorRef = React.createRef();
-  const urlRef = React.createRef();
+const AddBook = ({ visible, hidePopup, addBook }) => {
+  const [bookInfo, setBookInfo] = useState({
+    title: null,
+    message: null,
+    author: null,
+    url: null,
+  });
+
+  function onHandledChange(e) {
+    setBookInfo({
+      ...bookInfo,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function onHandledSubmit(event) {
+    addBook(bookInfo);
+    hidePopup();
+    event.preventDefault();
+  }
 
   return (
-    <PopupContainer {...rest}>
-      <form>
+    <Popup visible={visible} hide={hidePopup}>
+      <form onSubmit={onHandledSubmit}>
         <fieldset>
           <Legend>Add a Book</Legend>
           <InputBox>
             <Inputs
-              ref={titleRef}
               type="text"
               id="title"
+              name="title"
               placeHolder="Enter Book Title"
               essential
+              onChange={onHandledChange}
             >
               Title
             </Inputs>
           </InputBox>
           <InputBox>
             <Inputs
-              ref={messageRef}
               type="text"
-              id="Message"
+              id="message"
+              name="message"
               placeHolder="Enter Book Message"
+              onChange={onHandledChange}
             >
               Message
             </Inputs>
           </InputBox>
           <InputBox>
             <Inputs
-              ref={authorRef}
               type="text"
-              id="Author"
+              id="author"
+              name="author"
               placeHolder="Enter Book Author"
+              onChange={onHandledChange}
               essential
             >
               Author
@@ -51,10 +67,11 @@ const AddBook = ({ token, addBook, ...rest }) => {
           </InputBox>
           <InputBox>
             <Inputs
-              ref={urlRef}
               type="text"
-              id="URL"
+              id="url"
+              name="url"
               placeHolder="Enter Book URL"
+              onChange={onHandledChange}
             >
               URL
             </Inputs>
@@ -65,33 +82,14 @@ const AddBook = ({ token, addBook, ...rest }) => {
             size="medium"
             width={150}
             color="blue"
-            onClick={e => {
-              e.preventDefault();
-
-              addBook(
-                token,
-                titleRef.current.value,
-                messageRef.current.value,
-                authorRef.current.value,
-                urlRef.current.value,
-              );
-            }}
+            // onClick={handleAddBook}
           >
             ADD
           </Buttons>
         </ButtonBox>
       </form>
-    </PopupContainer>
+    </Popup>
   );
 };
 
-export default connect(
-  state => ({
-    token: state.token,
-  }),
-  dispatch => ({
-    addBook: (token, title, message, author, url) => {
-      dispatch(addBookThunk(token, title, message, author, url));
-    },
-  }),
-)(AddBook);
+export default AddBook;
