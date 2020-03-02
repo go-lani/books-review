@@ -10,7 +10,7 @@ const Books = ({ books, getBooks, removeBook }) => {
 
   return (
     <>
-      {books.length ? (
+      {books && books.length ? (
         <Ul>
           {books.map(book => (
             <BookItem key={book.bookId} book={book} removeBook={removeBook} />

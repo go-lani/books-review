@@ -7,7 +7,7 @@ const options = {
 };
 
 const initialState = {
-  books: [],
+  books: null,
   loading: false,
   error: null,
 };
@@ -24,7 +24,7 @@ const { success, pending, fail } = createActions(
 const books = handleActions(
   {
     PENDING: (state, action) => ({
-      books: state.books ? state.books : [],
+      ...state,
       loading: true,
       error: null,
     }),
@@ -34,7 +34,7 @@ const books = handleActions(
       error: null,
     }),
     FAIL: (state, action) => ({
-      books: [],
+      ...state,
       loading: false,
       error: action.payload,
     }),

@@ -22,11 +22,6 @@ export default function create() {
         feedMessage: null,
         feedVisible: false,
       },
-      books: {
-        books: [],
-        loading: false,
-        error: null,
-      },
       popup: {
         addPopupVisible: false,
         error: null,
