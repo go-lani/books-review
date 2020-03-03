@@ -73,7 +73,7 @@ const AddBook = ({ visible, hidePopup, addBook }) => {
               placeHolder="Enter Book URL"
               onChange={onHandledChange}
             >
-              URL
+              이미지 URL
             </Inputs>
           </InputBox>
         </fieldset>
