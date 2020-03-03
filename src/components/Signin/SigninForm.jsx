@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import Inputs from "../Common/Input";
 import Buttons from "../Common/Button";
 import A11yTitle from "../Common/A11yTitle";
@@ -15,17 +15,14 @@ import {
 } from "./SigninFormStyled";
 
 const SigninForm = ({ signIn, feedVisible }) => {
-  const [info, setInfo] = useState({
-    email: null,
-    password: null,
-  });
-
-  function onHandledChange(e) {
-    setInfo({ ...info, [e.target.name]: e.target.value });
-  }
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   function onHandleSubmit(e) {
-    signIn(info);
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    signIn({ email, password });
+
     e.preventDefault();
   }
 
@@ -39,11 +36,11 @@ const SigninForm = ({ signIn, feedVisible }) => {
             <Inputs
               type="email"
               id="email"
-              name="email"
+              ref={emailRef}
               placeHolder="Enter Your E-mail"
-              onChange={onHandledChange}
+              val={emailRef.current && emailRef.current.value}
+              defaultValue="publizm@gmail.com"
               essential
-              val={info.email}
             >
               E-MAIL
             </Inputs>
@@ -52,10 +49,10 @@ const SigninForm = ({ signIn, feedVisible }) => {
             <Inputs
               type="password"
               id="password"
-              name="password"
+              ref={passwordRef}
               placeHolder="Enter Your Password"
-              onChange={onHandledChange}
-              val={info.password}
+              val={passwordRef.current && passwordRef.current.value}
+              defaultValue="fcschool"
               essential
             >
               PASSWORD

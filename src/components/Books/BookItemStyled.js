@@ -6,13 +6,13 @@ export const Li = styled.li`
   margin: 0 2% 5%;
 
   ${media.tablet`
-    flex-basis: 30%;
+    flex-basis: 40%;
     margin: 0 5% 5%;
   `}
 
   ${media.mobile`
-    flex-basis: 80%;
-    margin: 0 0 5%;
+    flex-basis: 100%;
+    margin: 0 0 15%;
   `}
 `;
 
@@ -35,6 +35,7 @@ export const Title = styled.p`
   margin: 0 0 15px;
   font-size: 2rem;
   color: #222;
+  word-break: keep-all;
 `;
 
 export const Author = styled.p`

@@ -15,7 +15,7 @@ const AddBook = ({ visible, hidePopup, addBook }) => {
   function onHandledChange(e) {
     setBookInfo({
       ...bookInfo,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     });
   }
 
@@ -78,12 +78,7 @@ const AddBook = ({ visible, hidePopup, addBook }) => {
           </InputBox>
         </fieldset>
         <ButtonBox>
-          <Buttons
-            size="medium"
-            width={150}
-            color="blue"
-            // onClick={handleAddBook}
-          >
+          <Buttons size="medium" width={150} color="blue">
             ADD
           </Buttons>
         </ButtonBox>

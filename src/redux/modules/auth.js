@@ -24,13 +24,6 @@ const { success, pending, fail } = createActions(
   options,
 );
 
-// 필요한게 있을떈 통으로 해야된다
-// 이유는 예전에 action을 만들때 아래와 같은 코드였는데 undefined 일때 initialState를 선언하는 것과 같이
-// 이미 token이란 값이 있다면 다른 객체의 키 값들은 선언이 안된다는 점이 있다.
-// auth = (state = initialState) => {
-
-// }
-
 const auth = handleActions(
   {
     PENDING: (state, action) => ({

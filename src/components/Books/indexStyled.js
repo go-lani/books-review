@@ -8,10 +8,6 @@ export const Ul = styled.ul`
   overflow: hidden;
   margin: 0 0 -5%;
 
-  ${media.tablet`
-    justify-content: center;
-  `}
-
   ${media.mobile`
     justify-content: center;
   `}
