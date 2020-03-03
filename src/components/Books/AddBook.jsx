@@ -21,6 +21,14 @@ const AddBook = ({ visible, hidePopup, addBook }) => {
 
   function onHandledSubmit(event) {
     addBook(bookInfo);
+
+    setBookInfo({
+      title: null,
+      message: null,
+      author: null,
+      url: null,
+    });
+
     hidePopup();
     event.preventDefault();
   }
