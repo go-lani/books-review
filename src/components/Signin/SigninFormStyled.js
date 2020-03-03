@@ -7,7 +7,7 @@ export const FormArea = styled.div`
   background: #35475e;
 
   ${media.tablet`
-    width: 50%;
+    width: 100%;
   `}
 
   ${media.desktop`

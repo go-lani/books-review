@@ -20,10 +20,16 @@ export const IntroArea = styled.div`
     background: rgba(0, 0, 0, 0.35);
   }
 
+  ${media.tablet`
+    min-width: 50%;
+    width: 100%;
+  `};
+
   ${media.mobile`
+    min-width: 50%;
     width: 100%;
     min-height: 220px;
-  justify-content: space-evenly;
+    justify-content: space-evenly;
   `};
 `;
 

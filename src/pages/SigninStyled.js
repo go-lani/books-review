@@ -12,7 +12,7 @@ export const SignInWrapper = styled.section`
 
 export const SignInInner = styled.div`
   overflow: hidden;
-  width: 85%;
+  width: auto;
   border-radius: 10px;
 
   ${media.tablet`
