@@ -1,4 +1,5 @@
 import styled, { keyframes, css } from "styled-components";
+import media from "../../libs/MediaQuery";
 
 const fadeIn = keyframes`
   from {
@@ -85,6 +86,13 @@ export const PopupInner = styled.div`
     css`
       animation-name: ${slideDown};
     `}
+
+  ${media.mobile`
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    height: 100vh;
+  `}
 `;
 
 export const CloseButton = styled.button`
