@@ -10,7 +10,7 @@ export default class AuthService {
     });
   };
   static signOut = token => {
-    return axios.delete("https://api.marktube.tv/v1/me", {
+    return axios.delete(AUTH_API_URL, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
