@@ -1,7 +1,11 @@
 import React from "react";
 import NavItem from "./NavItem";
 import withAuth from "../../hocs/withAuth";
-import { NavigationBar } from "./indexStyled";
+import styled from "styled-components";
+
+export const NavigationBar = styled.ul`
+  overflow: hidden;
+`;
 
 const Navigation = ({ signOut }) => {
   return (

@@ -1,8 +1,26 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Inputs from "../Common/Input";
 import Buttons from "../Common/Button";
 import Popup from "../Popup";
-import { InputBox, Legend, ButtonBox } from "./AddBookStyled";
+
+export const InputBox = styled.div`
+  & + & {
+    margin: 25px 0 0;
+  }
+`;
+
+export const Legend = styled.legend`
+  display: block;
+  width: 100%;
+  margin: 0 0 40px;
+  font-size: 3rem;
+  color: #fff;
+`;
+
+export const ButtonBox = styled.div`
+  margin: 50px 0 0;
+`;
 
 const AddBook = ({ visible, hidePopup, addBook }) => {
   const [bookInfo, setBookInfo] = useState({

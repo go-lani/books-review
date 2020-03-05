@@ -1,7 +1,15 @@
 import React from "react";
-import { StyledHeader } from "./indexStyled";
 import Navigation from "../Navigation";
 import UtilMenu from "../UtilMenu";
+import styled from "styled-components";
+
+export const StyledHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+  background: #28343d;
+  color: #fff;
+`;
 
 const Header = ({ signOut, showAddPopup }) => {
   return (
